@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6906869138848648270
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Starry_Sky
+  m_Shader: {fileID: -6465566751694194690, guid: 3e2149e29f8a9564185132bfbd5beecf,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Boolean_f2f00e3dd9444588a589c1e271a8f868: 1
+    - Vector1_0e9c94bea1ca47e2a3da7fa07e484c88: 0.2
+    - Vector1_0f9a6c7d98b24678af3e2aee6c690dd1: 0.02
+    - Vector1_1: 0
+    - Vector1_12c987a3d8a042dc857162c75ed03c3a: 0.075
+    - Vector1_16793f403b61495a8ab8794fe097fd7a: 0.1
+    - Vector1_2: 0.3
+    - Vector1_215a5327f71e44a09401b4baa2255170: 0
+    - Vector1_4cc752c71bf042d1a7e8d02c19e18a09: 1
+    - Vector1_716ad50c6c58439bb422d93ca644b4f3: 8
+    - Vector1_81ba4814861347e4bc0270b185596764: 1
+    - Vector1_a0697fa36b484153a04e6251d2de807c: -0.25
+    - Vector1_a0697fa36b484153a04e6251d2de807c_1: 0.64
+    - Vector1_ce25a1c87afc4c8bb4f79620cb6bea5e: 0.6
+    - Vector1_dbecc1b90d744fedbb620134fcf71f58: 0.5
+    - Vector1_dbecc1b90d744fedbb620134fcf71f58_1: 2
+    - Vector1_dbecc1b90d744fedbb620134fcf71f58_2: 1
+    - Vector1_dbecc1b90d744fedbb620134fcf71f58_3: 1
+    - Vector1_dbecc1b90d744fedbb620134fcf71f58_4: 2
+    - Vector1_dbecc1b90d744fedbb620134fcf71f58_5: 0.5
+    - Vector1_e7158a6f11ba43e58621321e89423b28: 0.3
+    - Vector1_e7158a6f11ba43e58621321e89423b28_1: 0.05
+    - Vector1_ebe562ebae794980a0d53131f0fb586d: 1
+    - Vector1_ecbca6111c054c9baf2ed0c974169f27: 0.1
+    - Vector1_f9c9f550153d4843a1e9599b8b904719: 1
+    - Vector1_fd03c0c35cad48d5a35430383988310e: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    m_Colors:
+    - Color_0fde5e88f9104c7187a609a20acb78dd: {r: 0, g: 1, b: 0, a: 1}
+    - Color_15f5beb7fb78455fa58d3a62d0d5efa2: {r: 0, g: 0, b: 1, a: 1}
+    - Color_a0e2811ee6a8426487a5d1be8c3cd327: {r: 0.78431374, g: 2.3058825, b: 2.9960785,
+        a: 1}
+    - Color_d388cec5d8094bfc81c1c0b94ade3c30: {r: 1, g: 0, b: 0, a: 1}
+    - Color_ef4ddb258b164b2e8bd59f2bee29ff23: {r: 0, g: 0, b: 0, a: 1}
+    - Color_ef4ddb258b164b2e8bd59f2bee29ff23_1: {r: 42.722507, g: 33.38733, b: 21.562775,
+        a: 1}
+    - Color_ef4ddb258b164b2e8bd59f2bee29ff23_2: {r: 1.4142135, g: 1.4142135, b: 1.4142135,
+        a: 1}
+    - Color_f0a27b309d8b48be87419cfaa3eb5327: {r: 1, g: 1, b: 1, a: 1}
+    - Vector2_b0f1e2b792d9490eb2a2c7bae3dd6154: {r: 0, g: 1, b: 0, a: 0}
+    - Vector2_b0f1e2b792d9490eb2a2c7bae3dd6154_1: {r: 0, g: 1, b: 0, a: 0}
+    - Vector3_f985e800a7e14d56b6823a23cddeaad5: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

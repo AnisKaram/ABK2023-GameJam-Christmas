@@ -1,0 +1,18 @@
+Setup:
+
+Enable Opaque and Depth texture on URP asset. 
+Add 2 "Custom Clouds Fog" renderer features to your forward renderer asset.
+Add "Clouds" material to settings of bottom one, add "Sky Volume" material to top.
+Delete all directional lights from your scene.
+Drag "DayNightPrefab" into your scene - remove "Sun_Rotator" script if you don't want a day/night cycle.
+Navigate to lighting panel and set skybox material to "Starry Sky".
+
+Details:
+
+It is recommended to nto edit the sky material, or most properties of the cloud material. 
+Parameters you may wish to change on the clouds for artistic reasons are "Colour", "Exposure", 
+"MinDarkness", "Thickness", "Noise_Scale" and "Offset_Speed". Parameters you may wish to change
+on the clouds for performance reasons are "Steps", "StepSize" and "LightingSteps". Lower "Steps" + higher "StepSize"
+results in less realistic clouds with better performance and vice versa. Increasing "LightingSteps" results in better 
+quality lighting, however, the increase reduces performance exponentially. These settings are already tuned for a balance 
+in both performance and quality, however, some scenarios may require changes.
