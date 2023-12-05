@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 442428}
   - component: {fileID: 3319450}
   - component: {fileID: 2351372}
-  - component: {fileID: 6477306}
+  - component: {fileID: 7893108267704309321}
   m_Layer: 0
   m_Name: Present_Box_Color_20
   m_TagString: Untagged
@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156138}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.8549, y: 3.8549, z: 3.8549}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6477306
-MeshCollider:
+--- !u!65 &7893108267704309321
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,7 +102,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: ffdac3413dc7f5d43921f82456f894af, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.43324664, y: 0.41687194, z: 0.41501674}
+  m_Center: {x: 0.0018879175, y: 0.19515774, z: 0.0016873777}
