@@ -37,10 +37,8 @@ public class PlayerController : MonoBehaviour
 
     // Crouching fields
     private const float _crouchSpeed = 3.5f;
-    private const float _crouchYScale = 0.5f;
-    private float _startYScale;
-    private Vector3 _crouchingScale;
-    private Vector3 _normalScale;
+    private const float _crouchingHeight = 0.5f;
+    private const float _normalHeight = 2f;
     private bool _isCrouching;
     #endregion
 
@@ -74,10 +72,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         _playerSpeed = _defaultPlayerSpeed;
-
-        _startYScale = transform.localScale.y;
-        _crouchingScale = new Vector3(transform.localScale.x, _crouchYScale, transform.localScale.z);
-        _normalScale = new Vector3(transform.localScale.x, _startYScale, transform.localScale.z);
     }
 
     private void Update()
@@ -123,7 +117,7 @@ public class PlayerController : MonoBehaviour
         _xRotation = Mathf.Clamp(_xRotation, -70f, 70f);
 
         // Up and down rotation.
-         _playerCamera.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+        _playerCamera.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
 
         // Left and right rotation.
         _playerBody.Rotate(Vector3.up * mouseX);
@@ -182,13 +176,13 @@ public class PlayerController : MonoBehaviour
         // Crouch
         if (isPlayerCrouching)
         {
-            transform.localScale = _crouchingScale;
+            _characterController.height = _crouchingHeight;
             ChangePlayerSpeed(speed: _crouchSpeed);
             return;
         }
 
         // Back to its normal height
-        transform.localScale = _normalScale;
+        _characterController.height = _normalHeight;
         ChangePlayerSpeed(speed: _defaultPlayerSpeed);
     }
 
