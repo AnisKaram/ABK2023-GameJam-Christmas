@@ -1,139 +1,183 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
     #region Fields
-    [Header("Camera")]
-    [SerializeField] private Camera _mainCamera;
+    private static InputManager _instance;
 
     private Controls _controls;
+    #endregion
+
+    #region Properties
+    public static InputManager Instance
+    {
+        get { return _instance; }
+    }
+    #endregion
+
+    #region Events
+    public static event UnityAction OnJumpTriggered;
+    public static event UnityAction OnSprintTriggered;
+    public static event UnityAction OnSprintStopped;
+    public static event UnityAction<bool> OnCrouchTriggered;
     #endregion
 
     #region Unity Methods
     private void Awake()
     {
+        // Making one instance of this script.
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
         _controls = new Controls();
+
+        _controls.Gameplay.Interact.started += _ => InteractionStarted();
+
+        _controls.Gameplay.Pause.started += _ => PauseStarted();
+
+        _controls.Gameplay.Reload.started += _ => ReloadStarted();
+
+        _controls.Gameplay.Jump.started += _ => JumpStarted();
+
+        _controls.Gameplay.Fire.started += _ => FireStarted();
+        _controls.Gameplay.Fire.canceled += _ => FireCanceled();
+
+        _controls.Gameplay.Aim.started += _ => AimStarted();
+        _controls.Gameplay.Aim.canceled += _ => AimCanceled();
+
+        _controls.Gameplay.Switch.started += _ => SwitchStarted();
+
+        _controls.Gameplay.Crouch.performed += _ => CrouchStarted();
+        _controls.Gameplay.Crouch.canceled += _ => CrouchCanceled();
+
+        _controls.Gameplay.Sprint.started += _ => SprintStarted();
+        _controls.Gameplay.Sprint.canceled += _ => SpringCanceled();
+    }
+
+    private void OnEnable()
+    {
         _controls.Enable();
+    }
 
-        _controls.Gameplay.Movement.performed += _ => OnMovementStarted();
-        _controls.Gameplay.Movement.canceled += _ => OnMovementCanceled();
-
-        _controls.Gameplay.Interact.started += _ => OnInteractionStarted();
-
-        _controls.Gameplay.Pause.started += _ => OnPauseStarted();
-
-        _controls.Gameplay.Reload.started += _ => OnReloadStarted();
-
-        _controls.Gameplay.Jump.started += _ => OnJumpStarted();
-
-        _controls.Gameplay.Fire.started += _ => OnFireStarted();
-        _controls.Gameplay.Fire.canceled += _ => OnFireCanceled();
-
-        _controls.Gameplay.Aim.started += _ => OnAimStarted();
-        _controls.Gameplay.Aim.canceled += _ => OnAimCanceled();
-
-        _controls.Gameplay.Switch.started += _ => OnSwitchStarted();
-
-        _controls.Gameplay.Look.performed += _ => OnLookingAround();
-
-        _controls.Gameplay.Crouch.started += _ => OnCrouchStarted();
+    private void OnDisable()
+    {
+        _controls.Disable();
     }
 
     private void OnDestroy()
     {
-        _controls.Disable();
+        _controls.Gameplay.Interact.started -= _ => InteractionStarted();
 
-        _controls.Gameplay.Movement.performed -= _ => OnMovementStarted();
-        _controls.Gameplay.Movement.canceled -= _ => OnMovementCanceled();
+        _controls.Gameplay.Pause.started -= _ => PauseStarted();
 
-        _controls.Gameplay.Interact.started -= _ => OnInteractionStarted();
+        _controls.Gameplay.Reload.started -= _ => ReloadStarted();
 
-        _controls.Gameplay.Pause.started -= _ => OnPauseStarted();
+        _controls.Gameplay.Jump.started -= _ => JumpStarted();
 
-        _controls.Gameplay.Reload.started -= _ => OnReloadStarted();
+        _controls.Gameplay.Fire.started -= _ => FireStarted();
+        _controls.Gameplay.Fire.canceled -= _ => FireCanceled();
 
-        _controls.Gameplay.Jump.started -= _ => OnJumpStarted();
+        _controls.Gameplay.Aim.started -= _ => AimStarted();
+        _controls.Gameplay.Aim.canceled -= _ => AimCanceled();
 
-        _controls.Gameplay.Fire.started -= _ => OnFireStarted();
-        _controls.Gameplay.Fire.canceled -= _ => OnFireCanceled();
+        _controls.Gameplay.Switch.started -= _ => SwitchStarted();
 
-        _controls.Gameplay.Aim.started -= _ => OnAimStarted();
-        _controls.Gameplay.Aim.canceled -= _ => OnAimCanceled();
+        _controls.Gameplay.Crouch.started -= _ => CrouchStarted();
+        _controls.Gameplay.Crouch.canceled -= _ => CrouchCanceled();
 
-        _controls.Gameplay.Switch.started -= _ => OnSwitchStarted();
+        _controls.Gameplay.Sprint.started -= _ => SprintStarted();
+        _controls.Gameplay.Sprint.canceled -= _ => SpringCanceled();
+    }
+    #endregion
 
-        _controls.Gameplay.Look.performed -= _ => OnLookingAround();
+    #region Public Methods
+    public Vector2 GetPlayerMovement()
+    {
+        return _controls.Gameplay.Movement.ReadValue<Vector2>();
+    }
 
-        _controls.Gameplay.Crouch.started -= _ => OnCrouchStarted();
+    public Vector2 GetMouseDelta()
+    {
+        return _controls.Gameplay.Look.ReadValue<Vector2>();
+    }
+
+    public bool IsPlayerJumped()
+    {
+        return _controls.Gameplay.Jump.triggered;
     }
     #endregion
 
     #region Private Methods
-    private void OnMovementStarted()
-    {
-        // Returns a vector2 data type
-        Debug.Log($"Movement started {_controls.Gameplay.Movement.ReadValue<Vector2>()}");
-    }
-
-    private void OnMovementCanceled()
-    {
-        Debug.Log($"Movement canceled");
-    }
-
-    private void OnInteractionStarted()
+    private void InteractionStarted()
     {
         Debug.Log("Interact");
     }
 
-    private void OnPauseStarted()
+    private void PauseStarted()
     {
         Debug.Log("Pause");
     }
 
-    private void OnReloadStarted()
+    private void ReloadStarted()
     {
         Debug.Log("Reload");
     }
 
-    private void OnJumpStarted()
+    private void JumpStarted()
     {
-        Debug.Log("Jump");
+        OnJumpTriggered?.Invoke();
     }
 
-    private void OnFireStarted()
+    private void FireStarted()
     {
         Debug.Log("Fire started");
     }
 
-    private void OnFireCanceled()
+    private void FireCanceled()
     {
         Debug.Log("Fire canceled");
     }
 
-    private void OnAimStarted()
+    private void AimStarted()
     {
         Debug.Log("Aim started");
     }
 
-    private void OnAimCanceled()
+    private void AimCanceled()
     {
         Debug.Log("Aim canceled");
     }
 
-    private void OnLookingAround()
-    {
-        Vector2 GameplayPosition = _mainCamera.ScreenToViewportPoint(_controls.Gameplay.Look.ReadValue<Vector2>());
-        Debug.Log($"Looking, position: {GameplayPosition}");
-    }
-
-    private void OnSwitchStarted()
+    private void SwitchStarted()
     {
         Debug.Log($"Switch");
     }
 
-    private void OnCrouchStarted()
+    private void CrouchStarted()
     {
-        Debug.Log("Crouch");
+        OnCrouchTriggered?.Invoke(true);
+    }
+
+    private void CrouchCanceled()
+    {
+        OnCrouchTriggered?.Invoke(false);
+    }
+
+    private void SprintStarted()
+    {
+        OnSprintTriggered?.Invoke();
+    }
+
+    private void SpringCanceled()
+    {
+        OnSprintStopped?.Invoke();
     }
     #endregion
 }
