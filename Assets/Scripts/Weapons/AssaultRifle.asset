@@ -20,5 +20,6 @@ MonoBehaviour:
   range: 30
   reloadTime: 3
   bloom: 0
-  recoil: 10
-  kickback: 0.15
+  recoil: 5
+  kickback: 0.1
+  weaponState: 1

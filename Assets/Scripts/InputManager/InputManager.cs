@@ -21,6 +21,9 @@ public class InputManager : MonoBehaviour
     public static event UnityAction OnSprintTriggered;
     public static event UnityAction OnSprintStopped;
     public static event UnityAction<bool> OnCrouchTriggered;
+    public static event UnityAction OnFireTriggered;
+    public static event UnityAction OnReloadTriggered;
+    public static event UnityAction OnSwitchTriggered;
     #endregion
 
     #region Unity Methods
@@ -47,7 +50,6 @@ public class InputManager : MonoBehaviour
         _controls.Gameplay.Jump.started += _ => JumpStarted();
 
         _controls.Gameplay.Fire.started += _ => FireStarted();
-        _controls.Gameplay.Fire.canceled += _ => FireCanceled();
 
         _controls.Gameplay.Aim.started += _ => AimStarted();
         _controls.Gameplay.Aim.canceled += _ => AimCanceled();
@@ -82,7 +84,6 @@ public class InputManager : MonoBehaviour
         _controls.Gameplay.Jump.started -= _ => JumpStarted();
 
         _controls.Gameplay.Fire.started -= _ => FireStarted();
-        _controls.Gameplay.Fire.canceled -= _ => FireCanceled();
 
         _controls.Gameplay.Aim.started -= _ => AimStarted();
         _controls.Gameplay.Aim.canceled -= _ => AimCanceled();
@@ -127,7 +128,7 @@ public class InputManager : MonoBehaviour
 
     private void ReloadStarted()
     {
-        Debug.Log("Reload");
+        OnReloadTriggered?.Invoke();
     }
 
     private void JumpStarted()
@@ -137,12 +138,7 @@ public class InputManager : MonoBehaviour
 
     private void FireStarted()
     {
-        Debug.Log("Fire started");
-    }
-
-    private void FireCanceled()
-    {
-        Debug.Log("Fire canceled");
+        OnFireTriggered?.Invoke();
     }
 
     private void AimStarted()
@@ -157,7 +153,7 @@ public class InputManager : MonoBehaviour
 
     private void SwitchStarted()
     {
-        Debug.Log($"Switch");
+        OnSwitchTriggered?.Invoke();
     }
 
     private void CrouchStarted()

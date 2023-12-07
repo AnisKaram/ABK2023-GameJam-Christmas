@@ -1,73 +1,150 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField]
-    private WeaponScriptableObject[] loadout;
-    [SerializeField]
-    private Transform weaponParent;
+    #region Fields
+    [Header("Lists")]
+    [SerializeField] private WeaponScriptableObject[] _loadout;
 
-    private int currentWeaponIndex;
-    private GameObject currentWeaponModel;
+    [Header("Transforms")]
+    [SerializeField] private Transform _weaponPlaceholder;
 
-    /*
-     * private int damage;
-     * private int ammoCapacity;
-     * private int magSize;
-     * private int fireRate;
-     * private float range;
-     * private float reloadTime;
-     */
+    private List<GameObject> _listOfWeaponInstances; // Holds all the spawned weapons in the loadout
 
-    void Awake()
+    private int _currentWeaponIndex;
+    private GameObject _currentWeaponModel;
+    #endregion
+
+    #region Unity Methods
+    private void Awake()
     {
-        Equip(0);
+        InputManager.OnFireTriggered += Shoot;
+        InputManager.OnReloadTriggered += Reload;
+        InputManager.OnSwitchTriggered += SwitchWeapon;
+
+        SpawnAllWeaponsInLoadout();
+
+        _currentWeaponIndex = 0;
+        _currentWeaponModel = _listOfWeaponInstances[0];
+        UnEquip(_currentWeaponIndex);
+
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.OnFireTriggered -= Shoot;
+        InputManager.OnReloadTriggered -= Reload;
+        InputManager.OnSwitchTriggered -= SwitchWeapon;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { Equip(0); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { Equip(1); }
-        if (Input.GetMouseButtonDown(0)) { Shoot(); }
+        if (_loadout[_currentWeaponIndex].weaponState == WeaponState.Shooting)
+        {
+            _currentWeaponModel.transform.localPosition = Vector3.Lerp(_currentWeaponModel.transform.localPosition, Vector3.zero, Time.deltaTime * 4f);
+            _currentWeaponModel.transform.localRotation = Quaternion.Lerp(_currentWeaponModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 10f);
+        }
+    }
+    #endregion
 
-        currentWeaponModel.transform.localPosition = Vector3.Lerp(currentWeaponModel.transform.localPosition, Vector3.zero, Time.deltaTime * 4f);
-        currentWeaponModel.transform.localRotation = Quaternion.Lerp(currentWeaponModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 10f);
+    #region Private Methods
+    private void SpawnAllWeaponsInLoadout()
+    {
+        _listOfWeaponInstances = new List<GameObject>();
+
+        for (int weapon = 0; weapon < _loadout.Length; weapon++)
+        {
+            GameObject weaponInstance = Instantiate(_loadout[weapon].model, _weaponPlaceholder.position, _weaponPlaceholder.rotation, _weaponPlaceholder);
+            weaponInstance.transform.localPosition = Vector3.zero;
+            weaponInstance.transform.localEulerAngles = Vector3.zero;
+
+            _listOfWeaponInstances.Add(weaponInstance);
+
+            WeaponScriptableObject weaponSO = _loadout[weapon];
+            weaponSO.weaponState = WeaponState.Idle;
+        }
     }
 
     private void Shoot()
     {
-        Transform spawnPoint = transform.Find("Main Camera");
+        //Transform spawnPoint = transform.Find("Main Camera");
 
-        //TODO: Add bloom
+        ////TODO: Add bloom
 
-        RaycastHit hit;
-        if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hit, loadout[currentWeaponIndex].range))
-        {
-            Debug.Log("Has hit something!");
-            // TODO: Deal damage
-        }
-
-        currentWeaponModel.transform.Rotate(loadout[currentWeaponIndex].recoil, 0, 0);
-        currentWeaponModel.transform.position += currentWeaponModel.transform.forward * loadout[currentWeaponIndex].kickback;
+        //RaycastHit hit;
+        //if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hit, _loadout[currentWeaponIndex].range))
+        //{
+        //    Debug.Log("Has hit something!");
+        //    // TODO: Deal damage
+        //}
+        Debug.Log("Shooting...");
+        ChangeEquippedWeaponState(WeaponState.Shooting);
+        _currentWeaponModel.transform.Rotate(_loadout[_currentWeaponIndex].recoil, 0, 0);
+        _currentWeaponModel.transform.position += _currentWeaponModel.transform.forward * _loadout[_currentWeaponIndex].kickback;
     }
 
     private void Reload()
     {
         // Reload weapon
+        ChangeEquippedWeaponState(WeaponState.Reloading);
     }
 
-    private void Equip(int index)
+    private void Equip(int weaponIndexToEquip)
     {
-        if(currentWeaponModel != null) { Destroy(currentWeaponModel); }
-
-        currentWeaponIndex = index;
-
-        GameObject newEquippedWeaponModel = Instantiate(loadout[index].model, weaponParent.position, weaponParent.rotation, weaponParent) as GameObject;
-        newEquippedWeaponModel.transform.localPosition = Vector3.zero;
-        newEquippedWeaponModel.transform.localEulerAngles = Vector3.zero;
-
-        currentWeaponModel = newEquippedWeaponModel;
+        // Equip if not equipped yet.
+        if (!_listOfWeaponInstances[weaponIndexToEquip].activeInHierarchy)
+        {
+            _currentWeaponIndex = weaponIndexToEquip;
+            _currentWeaponModel = _listOfWeaponInstances[_currentWeaponIndex];
+            _currentWeaponModel.SetActive(true);
+            _currentWeaponModel.transform.localPosition = Vector3.zero;
+            _currentWeaponModel.transform.localEulerAngles = Vector3.zero;
+            ChangeEquippedWeaponState(WeaponState.Idle);
+        }
     }
+
+    private void SwitchWeapon()
+    {
+        // Incrementing the weapon index by 1 if less than the
+        // count of the weapons spawned.
+        if (_currentWeaponIndex < _listOfWeaponInstances.Count - 1)
+        {
+            _currentWeaponIndex += 1;
+        }
+        // Decrementing the weapon index by 1 if equals to the count
+        // of the weapons spawned.
+        else if (_currentWeaponIndex == _listOfWeaponInstances.Count - 1)
+        {
+            _currentWeaponIndex -= 1;
+        }
+
+        Equip(_currentWeaponIndex);
+        UnEquip(_currentWeaponIndex);
+    }
+
+    private void UnEquip(int weaponIndexEquipped)
+    {
+        for (int weaponToUnequip = 0; weaponToUnequip < _listOfWeaponInstances.Count; weaponToUnequip++)
+        {
+            if (weaponIndexEquipped != weaponToUnequip)
+            {
+                _listOfWeaponInstances[weaponToUnequip].SetActive(false);
+            }
+        }
+    }
+
+    private void ChangeEquippedWeaponState(WeaponState state)
+    {
+        _loadout[_currentWeaponIndex].weaponState = state;
+    }
+    #endregion
+}
+
+
+public enum WeaponState
+{
+    Idle,
+    Shooting,
+    Reloading
 }

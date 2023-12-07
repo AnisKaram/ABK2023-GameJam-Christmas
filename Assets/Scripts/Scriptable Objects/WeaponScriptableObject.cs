@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponScriptableObject", menuName = "ScriptableObjects/Weapon")]
+[CreateAssetMenu(fileName = "WeaponScriptableObject", menuName = "ScriptableObjects/Weapon", order = 1)]
 public class WeaponScriptableObject : ScriptableObject
 {
     public GameObject model;
@@ -18,4 +16,5 @@ public class WeaponScriptableObject : ScriptableObject
     public float recoil;
     public float kickback;
 
+    public WeaponState weaponState;
 }

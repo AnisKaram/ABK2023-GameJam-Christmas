@@ -19,3 +19,7 @@ MonoBehaviour:
   fireRate: 120
   range: 15
   reloadTime: 1
+  bloom: 0
+  recoil: 20
+  kickback: 0.05
+  weaponState: 1
