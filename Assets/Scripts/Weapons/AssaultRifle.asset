@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47943ac20727de4fb405b5b822c1f8c, type: 3}
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
-  model: {fileID: 6648309476732334122, guid: 878da49cb849b46759a5aad09022cade, type: 3}
-  bulletPlaceholder: {fileID: 6186901642409041393, guid: 878da49cb849b46759a5aad09022cade,
+  model: {fileID: 7239143416475360253, guid: f27105c8394bf4783acb9b8a833373dd, type: 3}
+  bulletPlaceholder: {fileID: 7077979785149901329, guid: f27105c8394bf4783acb9b8a833373dd,
     type: 3}
   damage: 40
   ammoCapacity: 90
   magSize: 30
-  fireRate: 600
+  fireRate: 50
   range: 30
   reloadTime: 3
   bloom: 0
   recoil: 5
-  kickback: 0.1
-  weaponState: 1
+  kickback: 0.05
+  weaponState: 0
+  fireMode: 0

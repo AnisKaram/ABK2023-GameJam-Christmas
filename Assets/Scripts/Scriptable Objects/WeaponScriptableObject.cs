@@ -14,7 +14,7 @@ public class WeaponScriptableObject : ScriptableObject
     public int damage;
     public int ammoCapacity;
     public int magSize;
-    public int fireRate;
+    public float fireRate;
 
     public float range;
     public float reloadTime;
@@ -23,4 +23,5 @@ public class WeaponScriptableObject : ScriptableObject
     public float kickback;
 
     public WeaponState weaponState;
+    public FireMode fireMode;
 }

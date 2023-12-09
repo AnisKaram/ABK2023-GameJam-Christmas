@@ -13,9 +13,12 @@ public class WeaponModel : MonoBehaviour
 
     [Header("Lists")]
     [SerializeField] private WeaponScriptableObject[] _loadout;
-    [SerializeField] private List<int> _listOfWeaponsMagSize;
-    [SerializeField] private List<int> _listOfWeaponsAmmoCapacity;
-    [SerializeField] private List<Animator> _listOfWeaponsAnimator;
+    private List<int> _listOfWeaponsMagSize;
+    private List<int> _listOfWeaponsAmmoCapacity;
+    private List<Animator> _listOfWeaponsAnimator;
+    private List<GameObject> _listOfWeaponInstances; // Holds all the spawned weapons in the loadout
+    private List<ParticleSystem> _listOfMuzzleFlashes; // Holds all the muzzle paricles for every weapon
+    private List<WaitForSeconds> _listOfReloadTimes;
 
     [Header("Transforms")]
     [SerializeField] private Transform _weaponPlaceholder;
@@ -23,13 +26,12 @@ public class WeaponModel : MonoBehaviour
     [Header("LayerMasks")]
     [SerializeField] private LayerMask _hitLayer;
 
-    private List<GameObject> _listOfWeaponInstances; // Holds all the spawned weapons in the loadout
-    private List<ParticleSystem> _listOfMuzzleFlashes; // Holds all the muzzle paricles for every weapon
-
     private int _currentWeaponIndex;
     private GameObject _currentWeaponModel;
 
-    [SerializeField] private List<WaitForSeconds> _listOfReloadTimes;
+    private float _nextTimeToFire = 0f;
+
+    public static FireMode FireMode;
     #endregion
 
     #region Unity Methods
@@ -49,19 +51,15 @@ public class WeaponModel : MonoBehaviour
         UnEquip(_currentWeaponIndex);
     }
 
-    private void FetchAllWeaponsAnimator()
-    {
-        _listOfWeaponsAnimator = new List<Animator>();
-        for (int weapon = 0; weapon < _listOfWeaponInstances.Count; weapon++)
-        {
-            Animator animator = _listOfWeaponInstances[weapon].GetComponent<Animator>();
-            _listOfWeaponsAnimator.Add(animator);
-        }
-    }
-
     private void Start()
     {
         UpdateAmmoOnUI();
+    }
+
+    private void Update()
+    {
+        _currentWeaponModel.transform.localPosition = Vector3.Lerp(_currentWeaponModel.transform.localPosition, Vector3.zero, Time.deltaTime * 4f);
+        _currentWeaponModel.transform.localRotation = Quaternion.Lerp(_currentWeaponModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 10f);
     }
 
     private void OnDestroy()
@@ -70,15 +68,14 @@ public class WeaponModel : MonoBehaviour
         InputManager.OnReloadTriggered -= Reload;
         InputManager.OnSwitchTriggered -= SwitchWeapon;
     }
-
-    private void Update()
-    {
-        _currentWeaponModel.transform.localPosition = Vector3.Lerp(_currentWeaponModel.transform.localPosition, Vector3.zero, Time.deltaTime * 4f);
-        _currentWeaponModel.transform.localRotation = Quaternion.Lerp(_currentWeaponModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 10f);
-    }
     #endregion
 
     #region Private Methods
+    /// <summary>
+    /// This method is used to spawn all weapons available in the loadout
+    /// scriptable object and add in a dedicated list both the magSize and
+    /// the ammoCapacity for every weapon instance.
+    /// </summary>
     private void SpawnAllWeaponsInLoadout()
     {
         _listOfWeaponInstances = new List<GameObject>();
@@ -100,6 +97,10 @@ public class WeaponModel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method is used to fetch every muzzle flash in every weapon
+    /// and add it to the list of ParticleSystem.
+    /// </summary>
     private void FetchAllMuzzleFlashesInWeapons()
     {
         _listOfMuzzleFlashes = new List<ParticleSystem>();
@@ -117,6 +118,10 @@ public class WeaponModel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method is used to add a new WaitForSeconds for every
+    /// weapon based on the reloadTime to every weapon.
+    /// </summary>
     private void SetReloadTimes()
     {
         _listOfReloadTimes = new List<WaitForSeconds>();
@@ -124,6 +129,26 @@ public class WeaponModel : MonoBehaviour
         {
             WaitForSeconds reloadTime = new WaitForSeconds(_loadout[weapon].reloadTime);
             _listOfReloadTimes.Add(reloadTime);
+        }
+    }
+
+    /// <summary>
+    /// This method is used to fetch and add every animator attached
+    /// in every weapon in the list of animators.
+    /// </summary>
+    private void FetchAllWeaponsAnimator()
+    {
+        _listOfWeaponsAnimator = new List<Animator>();
+        for (int weapon = 0; weapon < _listOfWeaponInstances.Count; weapon++)
+        {
+            Transform weaponInstance = _listOfWeaponInstances[weapon].transform;
+            for (int currentWeaponChild = 0; currentWeaponChild < weaponInstance.childCount; currentWeaponChild++)
+            {
+                if (weaponInstance.GetChild(currentWeaponChild).CompareTag("WeaponModel"))
+                {
+                    _listOfWeaponsAnimator.Add(_listOfWeaponInstances[weapon].transform.GetChild(currentWeaponChild).GetComponent<Animator>());
+                }
+            }
         }
     }
 
@@ -135,6 +160,44 @@ public class WeaponModel : MonoBehaviour
 
         if (weaponState == WeaponState.Shooting || weaponState == WeaponState.Idle)
         {
+            ShootSingleOrAutoShot();
+        }
+    }
+
+    private void ShootSingleOrAutoShot()
+    {
+        FireMode fireMode = _loadout[_currentWeaponIndex].fireMode;
+
+        // Auto FireMode
+        if (fireMode == FireMode.Auto)
+        {
+            if (Time.time >= _nextTimeToFire)
+            {
+                _nextTimeToFire = Time.time + 1f / 15f;
+
+                ChangeEquippedWeaponState(WeaponState.Shooting);
+
+                PlayMuzzleFlashOnWeapon();
+                DecrementAmmo();
+
+                _currentWeaponModel.transform.Rotate(_loadout[_currentWeaponIndex].recoil, 0, 0);
+                _currentWeaponModel.transform.position += _currentWeaponModel.transform.forward * _loadout[_currentWeaponIndex].kickback;
+
+                RaycastHit autoHit;
+                if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out autoHit, _loadout[_currentWeaponIndex].range, _hitLayer))
+                {
+                    // TODO: Deal damage
+                    //Enemy enemy = hit.transform.GetComponent<Enemy>();
+                    //enemy.TakeDamage();
+                    Debug.Log("Enemy hit!");
+                }
+            }
+            return;
+        }
+
+        // Single FireMode
+        if (fireMode == FireMode.Single)
+        {
             ChangeEquippedWeaponState(WeaponState.Shooting);
 
             PlayMuzzleFlashOnWeapon();
@@ -143,8 +206,8 @@ public class WeaponModel : MonoBehaviour
             _currentWeaponModel.transform.Rotate(_loadout[_currentWeaponIndex].recoil, 0, 0);
             _currentWeaponModel.transform.position += _currentWeaponModel.transform.forward * _loadout[_currentWeaponIndex].kickback;
 
-            RaycastHit hit;
-            if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out hit, _loadout[_currentWeaponIndex].range, _hitLayer))
+            RaycastHit singleHit;
+            if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out singleHit, _loadout[_currentWeaponIndex].range, _hitLayer))
             {
                 // TODO: Deal damage
                 //Enemy enemy = hit.transform.GetComponent<Enemy>();
@@ -170,7 +233,6 @@ public class WeaponModel : MonoBehaviour
         int currentMagSize = _listOfWeaponsMagSize[_currentWeaponIndex];
         if (currentMagSize < 1)
         {
-            Debug.Log($"MAG SIZE < 1");
             Reload();
             return;
         }
@@ -178,14 +240,12 @@ public class WeaponModel : MonoBehaviour
 
     private IEnumerator WaitForReload()
     {
-        Debug.Log($"Waiting....");
         yield return _listOfReloadTimes[_currentWeaponIndex];
         UpdateAmmoOnUI();
         ChangeEquippedWeaponState(WeaponState.Idle);
-        Debug.Log($"Reload done");
+        EnableDisableReloadAnimation(isReloading: false);
     }
 
-    // TODO Apply reloading animation
     private void Reload()
     {
         WeaponState weaponState = _loadout[_currentWeaponIndex].weaponState;
@@ -196,33 +256,26 @@ public class WeaponModel : MonoBehaviour
             int ammoCapacity = _listOfWeaponsAmmoCapacity[_currentWeaponIndex];
             int magSize = _listOfWeaponsMagSize[_currentWeaponIndex];
 
-            // 1. We have to check if the magSize is equals to the default magSize
-            // 2. We have to check if the magSize is equals to 0.
-            // We have to check if the magSize is greater than 0.
-
             // Weapon can't be reloaded.
             if (magSize == defaultMagSize || ammoCapacity == 0)
             {
-                Debug.Log($"No need to reload");
                 return;
             }
 
-            // Start of reloading
+            // Start reloading
             ChangeEquippedWeaponState(WeaponState.Reloading);
             StartCoroutine(WaitForReload());
+            EnableDisableReloadAnimation(isReloading: true);
 
             if (magSize == 0)
             {
-                Debug.Log($"Mag size is ZERO");
                 if (ammoCapacity >= defaultMagSize) // We still have 30 or more in ammo capacity
                 {
-                    Debug.Log($"First if");
                     _listOfWeaponsMagSize[_currentWeaponIndex] += defaultMagSize; // We add 30 to the mag size
                     _listOfWeaponsAmmoCapacity[_currentWeaponIndex] -= defaultMagSize; // We subtract 30 from the ammo capacity
                 }
                 else // We have less than 30 in ammo capacity
                 {
-                    Debug.Log($"Second if");
                     _listOfWeaponsMagSize[_currentWeaponIndex] += ammoCapacity; // We add the ammo capacity
                     _listOfWeaponsAmmoCapacity[_currentWeaponIndex] = 0; // We set the ammo capacity to zero
                 }
@@ -232,11 +285,10 @@ public class WeaponModel : MonoBehaviour
             if (magSize > 0)
             {
                 int shotAmmo = defaultMagSize - magSize;
-                Debug.Log($"Mag size is greater than ZERO, shotAmmo: {shotAmmo}");
 
+                // Case where the shot ammo is less than the ammo capacity
                 if (ammoCapacity >= shotAmmo)
                 {
-                    Debug.Log($"FIRST IF, Shot ammo {shotAmmo}, adding to magSize {shotAmmo}, substracting {shotAmmo}");
                     _listOfWeaponsAmmoCapacity[_currentWeaponIndex] -= shotAmmo;
                     _listOfWeaponsMagSize[_currentWeaponIndex] += shotAmmo;
                 }
@@ -244,7 +296,6 @@ public class WeaponModel : MonoBehaviour
                 // Case where the shot ammo is greater than the ammo capacity
                 if (shotAmmo >= ammoCapacity && ammoCapacity > 0)
                 {
-                    Debug.Log($"SECOND IF, Shot ammo {shotAmmo}, adding to mahSize {ammoCapacity}, substracting {ammoCapacity}");
                     _listOfWeaponsAmmoCapacity[_currentWeaponIndex] -= ammoCapacity;
                     _listOfWeaponsMagSize[_currentWeaponIndex] += ammoCapacity;
                 }
@@ -256,7 +307,6 @@ public class WeaponModel : MonoBehaviour
     {
         if (_listOfWeaponsAmmoCapacity[_currentWeaponIndex] < 1 && _listOfWeaponsMagSize[_currentWeaponIndex] < 1)
         {
-            Debug.Log($"Weapon out of ammo");
             _loadout[_currentWeaponIndex].weaponState = WeaponState.OutOfAmmo;
         }
     }
@@ -273,6 +323,7 @@ public class WeaponModel : MonoBehaviour
             _currentWeaponModel.transform.localEulerAngles = Vector3.zero;
 
             ChangeEquippedWeaponState(WeaponState.Idle);
+            FireMode = _loadout[_currentWeaponIndex].fireMode;
         }
     }
 
@@ -316,9 +367,13 @@ public class WeaponModel : MonoBehaviour
     {
         _listOfMuzzleFlashes[_currentWeaponIndex].Play();
     }
+
+    private void EnableDisableReloadAnimation(bool isReloading)
+    {
+        _listOfWeaponsAnimator[_currentWeaponIndex].SetBool("IsReloading", isReloading);
+    }
     #endregion
 }
-
 
 public enum WeaponState
 {
@@ -326,4 +381,10 @@ public enum WeaponState
     Shooting,
     Reloading,
     OutOfAmmo
+}
+
+public enum FireMode
+{
+    Auto,
+    Single
 }
