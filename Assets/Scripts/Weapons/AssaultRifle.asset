@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47943ac20727de4fb405b5b822c1f8c, type: 3}
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
-  model: {fileID: 919132149155446097, guid: 9a8a1979762db394b8a4cc18c49ab7f3, type: 3}
+  model: {fileID: 6648309476732334122, guid: 878da49cb849b46759a5aad09022cade, type: 3}
+  bulletPlaceholder: {fileID: 6186901642409041393, guid: 878da49cb849b46759a5aad09022cade,
+    type: 3}
   damage: 40
   ammoCapacity: 90
   magSize: 30
