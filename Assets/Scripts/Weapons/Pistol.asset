@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47943ac20727de4fb405b5b822c1f8c, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  model: {fileID: 919132149155446097, guid: 5e6ba7fcafc5acb4591bd35f2bbaa08d, type: 3}
+  model: {fileID: 9060138589884306889, guid: f56356f5fde544082949de13bf053482, type: 3}
+  bulletPlaceholder: {fileID: 6629131112572255992, guid: f56356f5fde544082949de13bf053482,
+    type: 3}
   damage: 15
   ammoCapacity: 27
   magSize: 9
-  fireRate: 120
+  fireRate: 1
   range: 15
   reloadTime: 1
+  bloom: 0
+  recoil: 15
+  kickback: 0.05
+  weaponState: 0
+  fireMode: 1
