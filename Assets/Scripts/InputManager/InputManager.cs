@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class InputManager : MonoBehaviour
 {
@@ -7,6 +9,8 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
 
     private Controls _controls;
+
+    public bool _isAnyKeyPressed;
     #endregion
 
     #region Properties
@@ -21,6 +25,7 @@ public class InputManager : MonoBehaviour
     public static event UnityAction OnSprintTriggered;
     public static event UnityAction OnSprintStopped;
     public static event UnityAction<bool> OnCrouchTriggered;
+    public static event UnityAction OnAnyKeyPressed;
     #endregion
 
     #region Unity Methods
@@ -69,6 +74,14 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         _controls.Disable();
+    }
+
+    private void Update()
+    {
+        if (!GameManager.Instance.IsSplashScreenShowed)
+        {
+            InputSystem.onAnyButtonPress.CallOnce(ctrl => AnyKeyPressed());
+        }
     }
 
     private void OnDestroy()
@@ -178,6 +191,12 @@ public class InputManager : MonoBehaviour
     private void SpringCanceled()
     {
         OnSprintStopped?.Invoke();
+    }
+
+    private void AnyKeyPressed()
+    {
+        _isAnyKeyPressed = true;
+        OnAnyKeyPressed?.Invoke();
     }
     #endregion
 }
