@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
@@ -12,10 +12,8 @@ public class MenuController : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
         //switch case to manage different scenes
-        switch (currentScene) {
-            case "Main Menu":
-                handleMainMenuInput();
-                break;
+        switch (currentScene)
+        {
             case "Splash Screen":
                 handleSplashScreenInput();
                 break;
@@ -24,13 +22,13 @@ public class MenuController : MonoBehaviour
                 break;
         }
     }
+
     void handleSplashScreenInput() {
         if (Input.anyKeyDown)
         {
             SceneManager.LoadScene("Main Menu");
         }
     }
-    void handleMainMenuInput() { }
     void handleGameSceneInput() { }
 
     void Awake()
