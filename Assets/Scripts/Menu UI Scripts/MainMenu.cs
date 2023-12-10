@@ -6,24 +6,6 @@ public class MainMenu : MonoBehaviour
     public Canvas creditsCanvas;
     public Canvas mainCanvas;
     public Canvas howToPlay;
-
-    public void SwitchToGame()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void loadHowToPlay() {
-        howToPlay.enabled = true;
-        mainCanvas.enabled = false;
-        Debug.Log("Play Pressed");
-    }
-
-    public void Exit()
-    {
-        Debug.Log("Quit Pressed");
-        Application.Quit();
-    }
-
     private void Start()
     {
         creditsCanvas.enabled = false;
@@ -50,12 +32,5 @@ public class MainMenu : MonoBehaviour
             }
         }
 
-    }
-
-    public void LoadCredits()
-    {
-        creditsCanvas.enabled = true;
-        mainCanvas.enabled = false;
-        Debug.Log("Load Credits Pressed");
     }
 }

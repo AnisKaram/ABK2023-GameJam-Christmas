@@ -578,7 +578,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 568613606}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayButtonScript, Assembly-CSharp
         m_MethodName: loadHowToPlay
         m_Mode: 1
         m_Arguments:
@@ -606,11 +606,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 568613601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1285111f817ded84e90b643e7fb92df0, type: 3}
+  m_Script: {fileID: 11500000, guid: 203af0e66370c3a47865c3ffeb6c8c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditsCanvas: {fileID: 409800292}
-  mainCanvas: {fileID: 1581231971}
   howToPlay: {fileID: 1664256897}
 --- !u!1 &587369716
 GameObject:
@@ -812,7 +810,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 760765015}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: CreditsButtonScript, Assembly-CSharp
         m_MethodName: LoadCredits
         m_Mode: 1
         m_Arguments:
@@ -840,12 +838,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 760765010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1285111f817ded84e90b643e7fb92df0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b4ca56a499fc5745ac247b19221a38b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   creditsCanvas: {fileID: 409800292}
-  mainCanvas: {fileID: 1581231971}
-  howToPlay: {fileID: 1664256897}
 --- !u!1 &1089125025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,7 +1388,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1540204464}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: ExitButtonScript, Assembly-CSharp
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
@@ -1415,19 +1411,15 @@ CanvasRenderer:
 --- !u!114 &1540204464
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 2040288627598261556, guid: bd788be045a5ab441acfcbfbb3a37204,
-    type: 3}
-  m_PrefabInstance: {fileID: 1640390609596483970}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540204459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1285111f817ded84e90b643e7fb92df0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a70858009b5bf241a0bc35455cd6839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditsCanvas: {fileID: 409800292}
-  mainCanvas: {fileID: 1581231971}
-  howToPlay: {fileID: 1664256897}
 --- !u!1 &1581231968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,7 +1536,7 @@ GameObject:
   - component: {fileID: 1605649200}
   - component: {fileID: 1605649199}
   - component: {fileID: 1605649198}
-  - component: {fileID: 1605649197}
+  - component: {fileID: 1605649201}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -1572,21 +1564,6 @@ RectTransform:
   m_AnchoredPosition: {x: 697, y: -393}
   m_SizeDelta: {x: 256, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1605649197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605649195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1285111f817ded84e90b643e7fb92df0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creditsCanvas: {fileID: 409800292}
-  mainCanvas: {fileID: 1581231971}
-  howToPlay: {fileID: 1664256897}
 --- !u!114 &1605649198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1658,8 +1635,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1605649197}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 1605649201}
+        m_TargetAssemblyTypeName: StartButtonScript, Assembly-CSharp
         m_MethodName: SwitchToGame
         m_Mode: 1
         m_Arguments:
@@ -1678,6 +1655,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605649195}
   m_CullTransparentMesh: 1
+--- !u!114 &1605649201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605649195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9a5fe1248b1cd4fac1fe42e1a99526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1664256894
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,6 +2059,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Exit Button
       objectReference: {fileID: 0}
+    - target: {fileID: 3997914538856165781, guid: bd788be045a5ab441acfcbfbb3a37204,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997914538856165781, guid: bd788be045a5ab441acfcbfbb3a37204,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ExitButtonScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7138025776918325210, guid: bd788be045a5ab441acfcbfbb3a37204,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2170,7 +2169,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
