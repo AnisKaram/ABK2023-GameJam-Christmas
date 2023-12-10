@@ -37,9 +37,9 @@ public class WeaponModel : MonoBehaviour
     #region Unity Methods
     private void Awake()
     {
-        //InputManager.OnFireTriggered += Shoot;
-        //InputManager.OnReloadTriggered += Reload;
-        //InputManager.OnSwitchTriggered += SwitchWeapon;
+        InputManager.OnFireTriggered += Shoot;
+        InputManager.OnReloadTriggered += Reload;
+        InputManager.OnSwitchTriggered += SwitchWeapon;
 
         SpawnAllWeaponsInLoadout();
         FetchAllMuzzleFlashesInWeapons();
@@ -64,9 +64,9 @@ public class WeaponModel : MonoBehaviour
 
     private void OnDestroy()
     {
-        //InputManager.OnFireTriggered -= Shoot;
-        //InputManager.OnReloadTriggered -= Reload;
-        //InputManager.OnSwitchTriggered -= SwitchWeapon;
+        InputManager.OnFireTriggered -= Shoot;
+        InputManager.OnReloadTriggered -= Reload;
+        InputManager.OnSwitchTriggered -= SwitchWeapon;
     }
     #endregion
 

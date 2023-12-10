@@ -20,7 +20,7 @@ MonoBehaviour:
   magSize: 30
   fireRate: 50
   range: 30
-  reloadTime: 3
+  reloadTime: 2
   bloom: 0
   recoil: 5
   kickback: 0.05
