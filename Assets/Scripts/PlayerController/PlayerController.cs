@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("LayerMasks")]
     [SerializeField] private LayerMask groundMask;
 
-    private InputManager _inputManager;
+    //private InputManager _inputManager;
 
     private const float _mouseSensitivity = 50f;
 
@@ -57,17 +57,17 @@ public class PlayerController : MonoBehaviour
     #region Unity Methods
     private void Awake()
     {
-        InputManager.OnJumpTriggered += HandlePlayerJump;
-        InputManager.OnSprintTriggered += HandlePlayerSprint;
-        InputManager.OnSprintStopped += HandlePlayerStoppedSprinting;
-        InputManager.OnCrouchTriggered += HandlePlayerCrouching;
+        //InputManager.OnJumpTriggered += HandlePlayerJump;
+        //InputManager.OnSprintTriggered += HandlePlayerSprint;
+        //InputManager.OnSprintStopped += HandlePlayerStoppedSprinting;
+        //InputManager.OnCrouchTriggered += HandlePlayerCrouching;
 
         _characterHealth.SetHealth(health: 100);
     }
 
     private void Start()
     {
-        _inputManager = InputManager.Instance;
+        //_inputManager = InputManager.Instance;
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -85,23 +85,23 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        InputManager.OnJumpTriggered -= HandlePlayerJump;
-        InputManager.OnSprintTriggered -= HandlePlayerSprint;
-        InputManager.OnSprintStopped -= HandlePlayerStoppedSprinting;
-        InputManager.OnCrouchTriggered -= HandlePlayerCrouching;
+        //InputManager.OnJumpTriggered -= HandlePlayerJump;
+        //InputManager.OnSprintTriggered -= HandlePlayerSprint;
+        //InputManager.OnSprintStopped -= HandlePlayerStoppedSprinting;
+        //InputManager.OnCrouchTriggered -= HandlePlayerCrouching;
     }
     #endregion
 
     #region Private Methods
     private void HandlePlayerMovement()
     {
-        Vector2 input = _inputManager.GetPlayerMovement();
-        float x = input.x;
-        float z = input.y;
+        //Vector2 input = _inputManager.GetPlayerMovement();
+        //float x = input.x;
+        //float z = input.y;
 
-        Vector3 movement = transform.right * x + transform.forward * z;
+        //Vector3 movement = transform.right * x + transform.forward * z;
 
-        _characterController.Move(movement * _playerSpeed * Time.deltaTime);
+        //_characterController.Move(movement * _playerSpeed * Time.deltaTime);
 
         _velocity.y += _gravity * Time.deltaTime;
         _characterController.Move(_velocity * Time.deltaTime);
@@ -109,18 +109,18 @@ public class PlayerController : MonoBehaviour
 
     private void HandlePlayerLookingAround()
     {
-        Vector2 input = _inputManager.GetMouseDelta();
-        float mouseX = input.x * _mouseSensitivity * Time.deltaTime;
-        float mouseY = input.y * _mouseSensitivity * Time.deltaTime;
+        //Vector2 input = _inputManager.GetMouseDelta();
+        //float mouseX = input.x * _mouseSensitivity * Time.deltaTime;
+        //float mouseY = input.y * _mouseSensitivity * Time.deltaTime;
 
-        _xRotation -= mouseY;
+        //_xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, -70f, 70f);
 
         // Up and down rotation.
         _playerCamera.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
 
         // Left and right rotation.
-        _playerBody.Rotate(Vector3.up * mouseX);
+        //_playerBody.Rotate(Vector3.up * mouseX);
     }
 
     private void HandlePlayerJump()
