@@ -3,7 +3,7 @@ using UnityEngine;
 public class CharacterHealth : MonoBehaviour
 {
     #region Fields
-    private int _health;
+    [SerializeField] private int _health;
     #endregion
 
     #region Properties
