@@ -2851,6 +2851,22 @@ PrefabInstance:
       propertyPath: _playerGroundedText
       value: 
       objectReference: {fileID: 1234882261}
+    - target: {fileID: 4662907778269947008, guid: 7c6998d77acd942359a84ed09bd8e411,
+        type: 3}
+      propertyPath: PauseMenu
+      value: 
+      objectReference: {fileID: 2253635445821453172, guid: 42e502a8b92d6470c9d6b687a596338b,
+        type: 3}
+    - target: {fileID: 4662907778269947008, guid: 7c6998d77acd942359a84ed09bd8e411,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662907778269947008, guid: 7c6998d77acd942359a84ed09bd8e411,
+        type: 3}
+      propertyPath: _weaponController
+      value: 
+      objectReference: {fileID: 1797065551}
     - target: {fileID: 7498020125734249868, guid: 7c6998d77acd942359a84ed09bd8e411,
         type: 3}
       propertyPath: m_Name
@@ -2861,6 +2877,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c6998d77acd942359a84ed09bd8e411, type: 3}
+--- !u!114 &1797065551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4864962902570870983, guid: 7c6998d77acd942359a84ed09bd8e411,
+    type: 3}
+  m_PrefabInstance: {fileID: 1797065550}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e916c94d27aee74d8a2303603492890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1857596806
 GameObject:
   m_ObjectHideFlags: 0

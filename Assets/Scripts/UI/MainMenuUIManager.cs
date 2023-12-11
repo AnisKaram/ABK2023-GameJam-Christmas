@@ -26,6 +26,7 @@ public class MainMenuUIManager : MonoBehaviour
     private UnityAction _exitAction;
     private UnityAction _backAction;
 
+
     private void Awake()
     {
         InputManager.OnAnyKeyPressed += AnyKeyPressed;
@@ -49,7 +50,7 @@ public class MainMenuUIManager : MonoBehaviour
         _creditsAction = new UnityAction(OnCreditsButtonClicked);
         _exitAction = new UnityAction(OnExitButtonClicked);
         _backAction = new UnityAction(OnBackButtonClicked);
-        
+
         _playButton.onClick.AddListener(_playAction);
         _howToPlayButton.onClick.AddListener(_howToPlayAction);
         _creditsButton.onClick.AddListener(_creditsAction);

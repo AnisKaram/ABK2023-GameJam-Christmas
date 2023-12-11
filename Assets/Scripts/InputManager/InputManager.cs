@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
+    private Boolean isPaused = false;
     #region Fields
     private static InputManager _instance;
 
@@ -27,6 +30,7 @@ public class InputManager : MonoBehaviour
     public static event UnityAction OnSprintStopped;
     public static event UnityAction<bool> OnCrouchTriggered;
     public static event UnityAction OnAnyKeyPressed;
+    public static event UnityAction OnF3Pressed;
     #endregion
 
     #region Unity Methods
@@ -135,7 +139,10 @@ public class InputManager : MonoBehaviour
 
     private void PauseStarted()
     {
-        Debug.Log("Pause");
+        if (SceneManager.GetActiveScene().name == "GameScene") {
+            OnF3Pressed?.Invoke();
+            Debug.Log("F3 clicked");
+        }
     }
 
     private void ReloadStarted()
@@ -154,6 +161,7 @@ public class InputManager : MonoBehaviour
         {
             OnFireTriggered?.Invoke();
         }
+
     }
 
     private void FireCanceled()
