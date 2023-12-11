@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Character Controller")]
     [SerializeField] private CharacterController _characterController;
-    [SerializeField] private GameObject PauseMenu;
-    private GameObject pauseMenuInstance;
 
     [Header("Transforms")]
     [SerializeField] private Transform _playerCamera;
@@ -21,7 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
     private InputManager _inputManager;
-    private Controls controls;
 
     private const float _mouseSensitivity = 50f;
 
@@ -65,39 +62,8 @@ public class PlayerController : MonoBehaviour
         InputManager.OnSprintTriggered += HandlePlayerSprint;
         InputManager.OnSprintStopped += HandlePlayerStoppedSprinting;
         InputManager.OnCrouchTriggered += HandlePlayerCrouching;
-        InputManager.OnF3Pressed += F3Pressed;
-
-        controls = new Controls();
-
         _characterHealth.SetHealth(health: 100);
     }
-
-    private void F3Pressed()
-    {
-        if (Input.GetKey(KeyCode.F3))
-        {
-            if (pauseMenuInstance == null)
-            {
-                //stop time
-                Time.timeScale = 0; //this just stops time, does not disable player input
-                pauseMenuInstance = Instantiate(PauseMenu);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                controls.Gameplay.Disable(); // why does this not work? :/
-                controls.Gameplay.Pause.Enable();
-            }
-            else
-            {
-                //resume
-                Time.timeScale = 1;
-                Destroy(pauseMenuInstance);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                controls.Gameplay.Enable();
-            }
-        }
-    }
-
 
     private void Start()
     {
@@ -123,7 +89,6 @@ public class PlayerController : MonoBehaviour
         InputManager.OnSprintTriggered -= HandlePlayerSprint;
         InputManager.OnSprintStopped -= HandlePlayerStoppedSprinting;
         InputManager.OnCrouchTriggered -= HandlePlayerCrouching;
-        InputManager.OnF3Pressed -= F3Pressed;
     }
     #endregion
 

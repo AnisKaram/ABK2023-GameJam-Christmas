@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
-    private Boolean isPaused = false;
     #region Fields
     private static InputManager _instance;
 
@@ -18,6 +17,11 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance
     {
         get { return _instance; }
+    }
+
+    public Controls Controls{
+        get { return _controls; }
+        set { _controls = value; }
     }
     #endregion
 
@@ -30,7 +34,7 @@ public class InputManager : MonoBehaviour
     public static event UnityAction OnSprintStopped;
     public static event UnityAction<bool> OnCrouchTriggered;
     public static event UnityAction OnAnyKeyPressed;
-    public static event UnityAction OnF3Pressed;
+    public static event UnityAction OnPauseTriggered;
     #endregion
 
     #region Unity Methods
@@ -50,7 +54,7 @@ public class InputManager : MonoBehaviour
 
         _controls.Gameplay.Interact.started += _ => InteractionStarted();
 
-        _controls.Gameplay.Pause.started += _ => PauseStarted();
+        _controls.PauseGameplay.Pause.started += _ => PauseStarted();
 
         _controls.Gameplay.Reload.started += _ => ReloadStarted();
 
@@ -95,7 +99,7 @@ public class InputManager : MonoBehaviour
     {
         _controls.Gameplay.Interact.started -= _ => InteractionStarted();
 
-        _controls.Gameplay.Pause.started -= _ => PauseStarted();
+        _controls.PauseGameplay.Pause.started -= _ => PauseStarted();
 
         _controls.Gameplay.Reload.started -= _ => ReloadStarted();
 
@@ -139,10 +143,8 @@ public class InputManager : MonoBehaviour
 
     private void PauseStarted()
     {
-        if (SceneManager.GetActiveScene().name == "GameScene") {
-            OnF3Pressed?.Invoke();
-            Debug.Log("F3 clicked");
-        }
+        OnPauseTriggered?.Invoke();
+        Debug.Log("F3 clicked");
     }
 
     private void ReloadStarted()
