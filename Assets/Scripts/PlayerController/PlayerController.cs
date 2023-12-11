@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -61,7 +62,6 @@ public class PlayerController : MonoBehaviour
         InputManager.OnSprintTriggered += HandlePlayerSprint;
         InputManager.OnSprintStopped += HandlePlayerStoppedSprinting;
         InputManager.OnCrouchTriggered += HandlePlayerCrouching;
-
         _characterHealth.SetHealth(health: 100);
     }
 

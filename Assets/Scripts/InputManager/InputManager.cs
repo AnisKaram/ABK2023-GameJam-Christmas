@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -16,6 +18,11 @@ public class InputManager : MonoBehaviour
     {
         get { return _instance; }
     }
+
+    public Controls Controls{
+        get { return _controls; }
+        set { _controls = value; }
+    }
     #endregion
 
     #region Events
@@ -27,6 +34,7 @@ public class InputManager : MonoBehaviour
     public static event UnityAction OnSprintStopped;
     public static event UnityAction<bool> OnCrouchTriggered;
     public static event UnityAction OnAnyKeyPressed;
+    public static event UnityAction OnPauseTriggered;
     #endregion
 
     #region Unity Methods
@@ -46,7 +54,7 @@ public class InputManager : MonoBehaviour
 
         _controls.Gameplay.Interact.started += _ => InteractionStarted();
 
-        _controls.Gameplay.Pause.started += _ => PauseStarted();
+        _controls.PauseGameplay.Pause.started += _ => PauseStarted();
 
         _controls.Gameplay.Reload.started += _ => ReloadStarted();
 
@@ -91,7 +99,7 @@ public class InputManager : MonoBehaviour
     {
         _controls.Gameplay.Interact.started -= _ => InteractionStarted();
 
-        _controls.Gameplay.Pause.started -= _ => PauseStarted();
+        _controls.PauseGameplay.Pause.started -= _ => PauseStarted();
 
         _controls.Gameplay.Reload.started -= _ => ReloadStarted();
 
@@ -135,7 +143,8 @@ public class InputManager : MonoBehaviour
 
     private void PauseStarted()
     {
-        Debug.Log("Pause");
+        OnPauseTriggered?.Invoke();
+        Debug.Log("F3 clicked");
     }
 
     private void ReloadStarted()
@@ -154,6 +163,7 @@ public class InputManager : MonoBehaviour
         {
             OnFireTriggered?.Invoke();
         }
+
     }
 
     private void FireCanceled()
