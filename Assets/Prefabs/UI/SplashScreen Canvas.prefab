@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 4421216270664736277}
   - component: {fileID: 7253205628160268853}
   - component: {fileID: 1324613785051175895}
+  - component: {fileID: 3380472248775048243}
   m_Layer: 5
   m_Name: PressAnyKey Image
   m_TagString: Untagged
@@ -150,6 +151,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3380472248775048243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2668731781829768210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b66d7355cf152f43ad4a2a940083205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 0.2
+  maxZoom: 1.2
+  minZoom: 1
 --- !u!1 &6260250717214065398
 GameObject:
   m_ObjectHideFlags: 0

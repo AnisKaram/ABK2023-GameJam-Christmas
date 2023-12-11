@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class textAnimation : MonoBehaviour
+public class TextAnimation : MonoBehaviour
 {
-    public float zoomSpeed = 0.2f;
-    public float maxZoom = 1.2f;
-    public float minZoom = 1.0f;
+    private float zoomSpeed = 0.2f;
+    private float maxZoom = 1.2f;
+    private float minZoom = 1.0f;
 
     private RectTransform imageRectTransform;
     private bool zoomingIn = true;
 
-    void Start()
+    private void Start()
     {
         imageRectTransform = GetComponent<RectTransform>();
     }
 
-    void Update()
+    private void Update()
     {
         float scaleFactor = zoomingIn ? (1.0f + Time.deltaTime * zoomSpeed) : (1.0f - Time.deltaTime * zoomSpeed);
 
