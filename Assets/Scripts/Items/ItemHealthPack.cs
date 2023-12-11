@@ -7,6 +7,6 @@ public class ItemHealthPack : ItemBase
 
     protected override void PickUpBehavior()
     {
-        // TODO: restore player health by healthRestored amount
+        GlobalConsts.characterHealth.GainHealth(healthRestored);
     }
 }

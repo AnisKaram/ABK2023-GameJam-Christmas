@@ -8,8 +8,6 @@ public abstract class ItemBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // TODO: access player through global variable instead of below method
-
         if (other.gameObject.tag == "Player")
         {
             PickUpBehavior();
