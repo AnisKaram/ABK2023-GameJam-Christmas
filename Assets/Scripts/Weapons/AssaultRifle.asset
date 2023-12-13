@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
   model: {fileID: 7239143416475360253, guid: f27105c8394bf4783acb9b8a833373dd, type: 3}
-  bulletPlaceholder: {fileID: 7077979785149901329, guid: f27105c8394bf4783acb9b8a833373dd,
-    type: 3}
-  damage: 40
+  damage: 25
   ammoCapacity: 90
   magSize: 30
   fireRate: 50
@@ -24,5 +22,5 @@ MonoBehaviour:
   bloom: 0
   recoil: 5
   kickback: 0.05
-  weaponState: 0
+  weaponState: 1
   fireMode: 0

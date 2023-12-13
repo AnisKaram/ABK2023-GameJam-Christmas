@@ -1,12 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 // TODO remove serializefield after done testing
 public class EnemyParent : MonoBehaviour
 {
+    #region Fields
+    [SerializeField] private EnemyPresenterParent _enemyPresenterParent;
+
     // Assign it using the spawner
     [SerializeField] private Transform _playerTarget;
+    [SerializeField] private Vector3 _spawnedPosition;
     [SerializeField] private CharacterHealth _playerHealth;
+    [SerializeField] private NavMeshAgent _navMeshAgent;
     
     [SerializeField] private float _distanceToIdle;
     [SerializeField] private float _distanceToChase;
@@ -21,12 +27,22 @@ public class EnemyParent : MonoBehaviour
 
     [SerializeField] private bool _isCoolDownActivated;
 
-    private WaitForSeconds _coolDown;
+    [SerializeField] private float _defaultHealth;
+    [SerializeField] private float _health;
 
+    private WaitForSeconds _coolDown;
+    #endregion
+
+    #region Unity Methods
     private void Start()
     {
         _playerHealth = _playerTarget.GetComponent<CharacterHealth>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+
         _coolDown = new WaitForSeconds(_cooldownTimer);
+
+        _navMeshAgent.stoppingDistance = _distanceToAttack;
+        _navMeshAgent.speed = _moveSpeed;
     }
 
     private void Update()
@@ -35,15 +51,17 @@ public class EnemyParent : MonoBehaviour
 
         if (distance >= _distanceToIdle)
         {
+            // TODO trigger idle animation
             ChangeEnemyState(EnemyState.Idle);
+
+            _navMeshAgent.destination = _spawnedPosition;
         }
 
         if (distance <= _distanceToChase)
         {
             ChangeEnemyState(EnemyState.Chase);
-            // The move towards test passed.
-            // TODO we have to use the AI agent to move the enemy with same logic.
-            //MoveTowardsSpecificTarget(target: _playerTarget);
+            
+            _navMeshAgent.destination = _playerTarget.position;
         }
 
         if (!_isCoolDownActivated && distance <= _distanceToAttack)
@@ -53,12 +71,15 @@ public class EnemyParent : MonoBehaviour
             _isCoolDownActivated = true;
             StartCoroutine(CoolDownCoroutine());
 
+            // TODO trigger attack animation
             DealDamageToPlayer();
         }
 
         Debug.Log($"{_enemyState}");
     }
+    #endregion
 
+    #region Private Methods
     private float GetDistanceBetweenEnemyAndPlayer()
     {
         return Vector3.Distance(transform.position, _playerTarget.position);
@@ -74,26 +95,32 @@ public class EnemyParent : MonoBehaviour
         _playerHealth.TakeDamage(_damageToDeal);
     }
 
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+        _health = Mathf.Clamp(_health, 0, _defaultHealth);
+        _enemyPresenterParent.UpdateHealthImageUI(health: _health, defaultHealth: _defaultHealth);
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        if (_health < 1)
+        {
+            // TODO replace with something else ASAP.
+            Destroy(gameObject);
+            Debug.Log($"Enemy {name} is died");
+        }
+    }
+
     private IEnumerator CoolDownCoroutine()
     {
         yield return _coolDown;
         _isCoolDownActivated = false;
     }
+    #endregion
 
-    private void MoveTowardsSpecificTarget(Transform target)
-    {
-        if (Vector3.Distance(transform.position, target.position) > _distanceToAttack) // To prevent overshooting.
-        {
-            Vector3 moveDirection = (target.position - transform.position).normalized;
-            moveDirection = new Vector3(moveDirection.x, 0f, moveDirection.z);
-            transform.position += moveDirection * _moveSpeed * Time.deltaTime;
-
-            float rotateSpeed = 15f;
-            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
-            //SetWalkingAnimation(isWalking: true); TODO add later
-        }
-    }
-
+    #region Protected Methods
     protected virtual void SetIdleDistance(float idleDistance)
     {
         _distanceToIdle = idleDistance;
@@ -123,6 +150,18 @@ public class EnemyParent : MonoBehaviour
     {
         _moveSpeed = moveSpeed;
     }
+
+    protected virtual void SetSpawnedPosition(Vector3 spawnedPosition)
+    {
+        _spawnedPosition = spawnedPosition;
+    }
+
+    protected virtual void SetEnemyHealth(int health)
+    {
+        _defaultHealth = health;
+        _health = health;
+    }
+    #endregion
 }
 
 public enum EnemyState
