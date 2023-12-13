@@ -43,6 +43,8 @@ public class CharacterHealth : MonoBehaviour
         if (_health < 1)
         {
             Debug.Log("Player is died");
+            // TODO Losing condition
+            // TODO End game
         }
     }
     #endregion

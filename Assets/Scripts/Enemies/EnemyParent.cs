@@ -2,33 +2,42 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-// TODO remove serializefield after done testing
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyParent : MonoBehaviour
 {
     #region Fields
+    [Header("Scripts")]
     [SerializeField] private EnemyPresenterParent _enemyPresenterParent;
 
-    // Assign it using the spawner
-    [SerializeField] private Transform _playerTarget;
-    [SerializeField] private Vector3 _spawnedPosition;
-    [SerializeField] private CharacterHealth _playerHealth;
-    [SerializeField] private NavMeshAgent _navMeshAgent;
+    [Header("Animators")]
+    [SerializeField] private Animator _animator;
+
+    [Header("Particle Systems")]
+    [SerializeField] private ParticleSystem _dieEffect;
+
+    [Header("Transforms")]
+    [SerializeField] private Transform _playerTarget; // TODO Assign it using the spawner
+
+    private CharacterHealth _playerHealth;
+
+    private Vector3 _spawnedPosition;
+
+    private NavMeshAgent _navMeshAgent;
     
-    [SerializeField] private float _distanceToIdle;
-    [SerializeField] private float _distanceToChase;
-    [SerializeField] private float _distanceToAttack;
-    [SerializeField] private EnemyState _enemyState;
+    private float _distanceToIdle;
+    private float _distanceToChase;
+    private float _distanceToAttack;
 
-    [SerializeField] private int _damageToDeal;
+    private int _damageToDeal;
 
-    [SerializeField] private float _cooldownTimer;
+    private float _cooldownTimer;
 
-    [SerializeField] private float _moveSpeed;
+    private float _moveSpeed;
 
-    [SerializeField] private bool _isCoolDownActivated;
+    private bool _isCoolDownActivated;
 
-    [SerializeField] private float _defaultHealth;
-    [SerializeField] private float _health;
+    private float _defaultHealth;
+    private float _health;
 
     private WaitForSeconds _coolDown;
     #endregion
@@ -49,33 +58,38 @@ public class EnemyParent : MonoBehaviour
     {
         float distance = GetDistanceBetweenEnemyAndPlayer();
 
+        // Idle mode.
         if (distance >= _distanceToIdle)
         {
-            // TODO trigger idle animation
-            ChangeEnemyState(EnemyState.Idle);
-
-            _navMeshAgent.destination = _spawnedPosition;
+            MoveAgentTowardsTarget(targetPosition: _spawnedPosition);
         }
 
+        // Chase mode.
         if (distance <= _distanceToChase)
         {
-            ChangeEnemyState(EnemyState.Chase);
-            
-            _navMeshAgent.destination = _playerTarget.position;
+            MoveAgentTowardsTarget(targetPosition: _playerTarget.position);
         }
 
+        // Attack mode.
         if (!_isCoolDownActivated && distance <= _distanceToAttack)
         {
-            ChangeEnemyState(EnemyState.Attack);
-
             _isCoolDownActivated = true;
             StartCoroutine(CoolDownCoroutine());
-
-            // TODO trigger attack animation
+            TriggerAttackAnimation();
             DealDamageToPlayer();
         }
+    }
+    #endregion
 
-        Debug.Log($"{_enemyState}");
+    #region Public Methods
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+        _health = Mathf.Clamp(_health, 0, _defaultHealth);
+
+        _enemyPresenterParent.UpdateHealthImageUI(health: _health, defaultHealth: _defaultHealth);
+
+        CheckHealth();
     }
     #endregion
 
@@ -85,9 +99,9 @@ public class EnemyParent : MonoBehaviour
         return Vector3.Distance(transform.position, _playerTarget.position);
     }
 
-    private void ChangeEnemyState(EnemyState enemyState)
+    private void MoveAgentTowardsTarget(Vector3 targetPosition)
     {
-        _enemyState = enemyState;
+        _navMeshAgent.destination = targetPosition;
     }
 
     private void DealDamageToPlayer()
@@ -95,28 +109,32 @@ public class EnemyParent : MonoBehaviour
         _playerHealth.TakeDamage(_damageToDeal);
     }
 
-    public void TakeDamage(int damage)
-    {
-        _health -= damage;
-        _health = Mathf.Clamp(_health, 0, _defaultHealth);
-        _enemyPresenterParent.UpdateHealthImageUI(health: _health, defaultHealth: _defaultHealth);
-        CheckHealth();
-    }
-
     private void CheckHealth()
     {
         if (_health < 1)
         {
-            // TODO replace with something else ASAP.
-            Destroy(gameObject);
-            Debug.Log($"Enemy {name} is died");
+            KillEnemy();
         }
+    }
+
+    private void KillEnemy()
+    {
+        ParticleSystem particleSystem = Instantiate(_dieEffect);
+        particleSystem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        particleSystem.Play();
+
+        Destroy(gameObject);
     }
 
     private IEnumerator CoolDownCoroutine()
     {
         yield return _coolDown;
         _isCoolDownActivated = false;
+    }
+
+    private void TriggerAttackAnimation()
+    {
+        _animator.SetTrigger("Attack");
     }
     #endregion
 
@@ -162,11 +180,4 @@ public class EnemyParent : MonoBehaviour
         _health = health;
     }
     #endregion
-}
-
-public enum EnemyState
-{
-    Idle,
-    Chase,
-    Attack
 }
