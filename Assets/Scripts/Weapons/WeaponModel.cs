@@ -186,10 +186,7 @@ public class WeaponModel : MonoBehaviour
                 RaycastHit autoHit;
                 if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out autoHit, _loadout[_currentWeaponIndex].range, _hitLayer))
                 {
-                    // TODO: Deal damage
-                    //Enemy enemy = hit.transform.GetComponent<Enemy>();
-                    //enemy.TakeDamage();
-                    Debug.Log("Enemy hit!");
+                    DealDamageToEnemy(hit: autoHit);
                 }
             }
             return;
@@ -209,12 +206,18 @@ public class WeaponModel : MonoBehaviour
             RaycastHit singleHit;
             if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out singleHit, _loadout[_currentWeaponIndex].range, _hitLayer))
             {
-                // TODO: Deal damage
-                //Enemy enemy = hit.transform.GetComponent<Enemy>();
-                //enemy.TakeDamage();
+                DealDamageToEnemy(hit: singleHit);
                 Debug.Log("Enemy hit!");
             }
         }
+    }
+
+    private void DealDamageToEnemy(RaycastHit hit)
+    {
+        EnemyParent enemy = hit.transform.GetComponent<EnemyParent>();
+        int weaponDamage = _loadout[_currentWeaponIndex].damage;
+        enemy.TakeDamage(weaponDamage);
+        Debug.Log($"Enemy hit! {weaponDamage}");
     }
 
     private void UpdateAmmoOnUI()

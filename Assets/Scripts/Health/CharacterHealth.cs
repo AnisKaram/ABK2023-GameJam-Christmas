@@ -3,7 +3,7 @@ using UnityEngine;
 public class CharacterHealth : MonoBehaviour
 {
     #region Fields
-    private int _health;
+    [SerializeField] private int _health;
     #endregion
 
     #region Properties
@@ -43,6 +43,8 @@ public class CharacterHealth : MonoBehaviour
         if (_health < 1)
         {
             Debug.Log("Player is died");
+            // TODO Losing condition
+            // TODO End game
         }
     }
     #endregion

@@ -4,12 +4,6 @@ using UnityEngine;
 public class WeaponScriptableObject : ScriptableObject
 {
     public GameObject model;
-    public Transform bulletPlaceholder;
-
-    private void OnEnable()
-    {
-        bulletPlaceholder = model.transform.GetChild(0);
-    }
 
     public int damage;
     public int ammoCapacity;
