@@ -912,6 +912,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 710174714}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &726410685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 726410687}
+  - component: {fileID: 726410686}
+  m_Layer: 0
+  m_Name: LosingScreen UI Man
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &726410686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726410685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b32a177528d3643ab3301a138f689c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainMenuButton: {fileID: 832652309}
+  ExitButton: {fileID: 832652308}
+  RetryButton: {fileID: 832652310}
+  LosingScreenCanvas: {fileID: 832652311}
+--- !u!4 &726410687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726410685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 970.8488, y: 543.1901, z: 4.083794}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &743438230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1192,6 +1240,121 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &832652307
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3811083408400478194, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_Name
+      value: LosingScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811083408400478194, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982951173436291620, guid: b98e7ec4b7e76f847967db9feab4f04a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b98e7ec4b7e76f847967db9feab4f04a, type: 3}
+--- !u!114 &832652308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4896137633501531857, guid: b98e7ec4b7e76f847967db9feab4f04a,
+    type: 3}
+  m_PrefabInstance: {fileID: 832652307}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &832652309 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4640742018363784197, guid: b98e7ec4b7e76f847967db9feab4f04a,
+    type: 3}
+  m_PrefabInstance: {fileID: 832652307}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &832652310 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4318948132335256105, guid: b98e7ec4b7e76f847967db9feab4f04a,
+    type: 3}
+  m_PrefabInstance: {fileID: 832652307}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &832652311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1286796642312362516, guid: b98e7ec4b7e76f847967db9feab4f04a,
+    type: 3}
+  m_PrefabInstance: {fileID: 832652307}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &857685754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4579,8 +4742,10 @@ SceneRoots:
   - {fileID: 104141111}
   - {fileID: 1951371961}
   - {fileID: 1665563811}
+  - {fileID: 726410687}
   - {fileID: 1478168378}
   - {fileID: 1923237576}
   - {fileID: 778649993}
   - {fileID: 986965368}
   - {fileID: 1935359814}
+  - {fileID: 832652307}
