@@ -2,12 +2,37 @@ using UnityEngine;
 
 public class ItemPresent : MonoBehaviour
 {
+    private bool _canBePickedUp = false;
+
+    private void Awake()
+    {
+        InputManager.OnInteractionStarted += TryPickUpPresent;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            // TODO: if player inventory is empty, add present to player inventory and destroy gameobject
-            // TODO: if player inventory is full, do nothing
+            _canBePickedUp = true;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            _canBePickedUp = false;
+        }
+    }
+
+    private void TryPickUpPresent()
+    {
+        if (_canBePickedUp == false || GlobalConsts.playerInventory.IsInvetoryAtFullCapacity() == true)
+        {
+            return;
+        }
+
+        GlobalConsts.playerInventory.AddObjectToInventory(gameObject);
+        gameObject.SetActive(false);
     }
 }

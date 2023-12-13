@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 862499061701253837}
   - component: {fileID: 3348587685107866814}
-  - component: {fileID: 2452756001024315368}
+  - component: {fileID: 1068546516777371026}
   - component: {fileID: 2674961592831515002}
   m_Layer: 0
   m_Name: Present
-  m_TagString: Untagged
+  m_TagString: Present
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,8 +56,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &2452756001024315368
-BoxCollider:
+--- !u!135 &1068546516777371026
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -75,7 +75,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.53, y: 0.35, z: 0.39}
+  m_Radius: 2
   m_Center: {x: 0, y: 0.165, z: 0}
 --- !u!114 &2674961592831515002
 MonoBehaviour:

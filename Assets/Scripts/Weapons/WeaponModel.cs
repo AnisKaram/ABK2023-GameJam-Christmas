@@ -311,6 +311,29 @@ public class WeaponModel : MonoBehaviour
         }
     }
 
+    public bool CheckIfAmmoIsFull()
+    {
+        bool isAmmoFull = true;
+
+        if (_listOfWeaponsAmmoCapacity[0] != GlobalConsts.assaultRifle.ammoCapacity)
+        {
+            isAmmoFull = false;
+        }
+
+        if (_listOfWeaponsAmmoCapacity[1] != GlobalConsts.pistol.ammoCapacity)
+        {
+            isAmmoFull = false;
+        }
+
+        return isAmmoFull;
+    }
+
+    public void RefillAmmo()
+    {
+        _listOfWeaponsAmmoCapacity[0] = GlobalConsts.assaultRifle.ammoCapacity;
+        _listOfWeaponsAmmoCapacity[1] = GlobalConsts.pistol.ammoCapacity;
+    }
+
     private void Equip(int weaponIndexToEquip)
     {
         // Equip if not equipped yet.

@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
     public static event UnityAction OnSprintStopped;
     public static event UnityAction<bool> OnCrouchTriggered;
     public static event UnityAction OnAnyKeyPressed;
+    public static event UnityAction OnInteractionStarted;
     #endregion
 
     #region Unity Methods
@@ -130,7 +131,7 @@ public class InputManager : MonoBehaviour
     #region Private Methods
     private void InteractionStarted()
     {
-        Debug.Log("Interact");
+        OnInteractionStarted?.Invoke();
     }
 
     private void PauseStarted()

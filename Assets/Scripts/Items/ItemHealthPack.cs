@@ -3,10 +3,17 @@ using UnityEngine;
 public class ItemHealthPack : ItemBase
 {
     [SerializeField]
-    private int healthRestored = 25;
+    private int _healthRestored = 25;
 
-    protected override void PickUpBehavior()
+    protected override bool PickUpBehavior()
     {
-        GlobalConsts.characterHealth.GainHealth(healthRestored);
+        if (GlobalConsts.playerHealth.Health == 100)
+        {
+            return false;
+        }
+
+        GlobalConsts.playerHealth.GainHealth(_healthRestored);
+
+        return true;
     }
 }
