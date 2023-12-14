@@ -4,7 +4,7 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     #region Fields
-    private List<GameObject> _listOfObjects;
+    [SerializeField] private List<GameObject> _listOfObjects;
 
     private const float _maxItemsToHold = 1; // Player can only hold 1 present at a time
     #endregion
@@ -20,11 +20,13 @@ public class InventoryManager : MonoBehaviour
     public void AddObjectToInventory(GameObject grabbedObject)
     {
         _listOfObjects.Add(grabbedObject);
+        Debug.Log($"{grabbedObject.name} added.");
     }
 
-    public void RemoveObjectFromInventory(GameObject thrownObject)
+    public void RemoveObjectFromInventory()
     {
-        _listOfObjects.Remove(thrownObject);
+        _listOfObjects.RemoveAt(0);
+        Debug.Log($"removed.");
     }
 
     public bool IsInvetoryAtFullCapacity()

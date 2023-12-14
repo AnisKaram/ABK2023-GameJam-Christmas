@@ -30,15 +30,15 @@ public class CharacterHealth : MonoBehaviour
     public void SetHealth(int health)
     {
         _health = health;
-        _maxHealth.text = $"{_health}";
-        _currentHealth.text = $"{_health}";
+        UpdateMaxHealthOnUI();
+        UpdateCurrentHealthOnUI();
     }
 
     public void TakeDamage(int damage)
     {
         _health -= damage;
         _health = Mathf.Clamp(_health, 0, 100);
-        _currentHealth.text = $"{_health}";
+        UpdateCurrentHealthOnUI();
         CheckHealth();
     }
 
@@ -46,6 +46,7 @@ public class CharacterHealth : MonoBehaviour
     {
         _health += health;
         _health = Mathf.Clamp(_health, 1, 100);
+        UpdateCurrentHealthOnUI();
     }
     #endregion
 
@@ -54,11 +55,18 @@ public class CharacterHealth : MonoBehaviour
     {
         if (_health < 1)
         {
-            // TODO Losing condition
-            // TODO End game
-            Debug.Log("Player is died");
             OnPlayerDied?.Invoke();
         }
+    }
+
+    private void UpdateCurrentHealthOnUI()
+    {
+        _currentHealth.text = $"{_health}";
+    }
+
+    private void UpdateMaxHealthOnUI()
+    {
+        _maxHealth.text = $"{_health}";
     }
     #endregion
 }

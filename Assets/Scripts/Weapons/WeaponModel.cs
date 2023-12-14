@@ -333,8 +333,27 @@ public class WeaponModel : MonoBehaviour
 
     public void RefillAmmo()
     {
-        _listOfWeaponsAmmoCapacity[0] = GlobalConsts.assaultRifle.ammoCapacity;
-        _listOfWeaponsAmmoCapacity[1] = GlobalConsts.pistol.ammoCapacity;
+        // Looping through all the weapons available for the player
+        for (int weapon = 0; weapon < _listOfWeaponInstances.Count; weapon++)
+        {
+            // .. if a weapon is OutOfAmmo, we refill the ammoCapacity and magSize
+            if (_loadout[weapon].weaponState == WeaponState.OutOfAmmo)
+            {
+                int ammoToRefill = _loadout[weapon].ammoCapacity + _loadout[weapon].magSize;
+                _listOfWeaponsAmmoCapacity[weapon] = ammoToRefill;
+            }
+            // .. if not, we refill the ammoCapacity only
+            else
+            {
+                int ammoToRefill = _loadout[weapon].ammoCapacity;
+                _listOfWeaponsAmmoCapacity[weapon] = ammoToRefill;
+            }
+        }
+
+        // .. update the UI for the current enabled weapon.
+        int magSize = _listOfWeaponsMagSize[_currentWeaponIndex];
+        int ammoCapacity = _listOfWeaponsAmmoCapacity[_currentWeaponIndex];
+        _weaponPresenter.UpdateAmmoUI(magSize, ammoCapacity);
     }
 
     private void Equip(int weaponIndexToEquip)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemPresent : MonoBehaviour
 {
-    private bool _canBePickedUp = false;
+    [SerializeField] private bool _canBePickedUp = false;
 
     private void Awake()
     {
@@ -16,23 +16,27 @@ public class ItemPresent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        Debug.Log("OnTriggerEnter");
+        if (other.CompareTag("Player"))
         {
+            Debug.Log("PLAYER");
             _canBePickedUp = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        Debug.Log("OnTriggerExit");
+        if (other.CompareTag("Player"))
         {
+            Debug.Log($"PLAYER");
             _canBePickedUp = false;
         }
     }
 
     private void TryPickUpPresent()
     {
-        if (_canBePickedUp == false || GlobalConsts.playerInventory.IsInvetoryAtFullCapacity() == true)
+        if (!_canBePickedUp || GlobalConsts.playerInventory.IsInvetoryAtFullCapacity())
         {
             return;
         }
