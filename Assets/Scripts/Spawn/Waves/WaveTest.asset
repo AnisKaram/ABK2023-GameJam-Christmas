@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a317c6f27429ba14a961e950df6af927, type: 3}
+  m_Name: WaveTest
+  m_EditorClassIdentifier: 
+  <waveEnemyTypes>k__BackingField:
+  - {fileID: 4634872318146647649, guid: 473b50453a1664b06bcdfc15a557121e, type: 3}
+  - {fileID: 7954602251390321539, guid: a0348cb77192945c7ac36db1d376919f, type: 3}
+  <present>k__BackingField: {fileID: 4369301005997451358, guid: a34ed3e8ebaee5844923e35c4c51287a,
+    type: 3}
+  <numberOfEnemies>k__BackingField: 5
+  <numberOfPresents>k__BackingField: 1
