@@ -33,6 +33,28 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(this);
+
+        StartGame();
     }
     #endregion
+
+    public void StopGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void ConfineCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

@@ -53,7 +53,7 @@ public class PauseMenuUIManager : MonoBehaviour
     }
 
     private void onMainMenu() {
-        Time.timeScale = 1;
+        GameManager.Instance.StartGame();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -66,10 +66,10 @@ public class PauseMenuUIManager : MonoBehaviour
 
         //resume game
         Debug.Log("resume");
-        Time.timeScale = 1.0f;
+        GameManager.Instance.StartGame();
         InputManager.Instance.Controls.Gameplay.Enable();
         PauseMenuCanvas.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+        GameManager.Instance.LockCursor();
         Debug.Log("Resume");
     }
 
@@ -77,9 +77,9 @@ public class PauseMenuUIManager : MonoBehaviour
     {
         //pause game
         Debug.Log("pause");
-        Time.timeScale = 0;
         InputManager.Instance.Controls.Gameplay.Disable();
+        GameManager.Instance.StopGame();
+        GameManager.Instance.ConfineCursor();
         PauseMenuCanvas.SetActive(true);
-        Cursor.lockState = CursorLockMode.Confined;
     }
 }

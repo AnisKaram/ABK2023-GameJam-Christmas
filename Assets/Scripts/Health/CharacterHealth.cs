@@ -1,9 +1,18 @@
 using UnityEngine;
+using UnityEngine.Events;
+using TMPro;
 
 public class CharacterHealth : MonoBehaviour
 {
     #region Fields
+    [SerializeField] private TextMeshProUGUI _currentHealth;
+    [SerializeField] private TextMeshProUGUI _maxHealth;
+
     [SerializeField] private int _health;
+    #endregion
+
+    #region Events
+    public static event UnityAction OnPlayerDied;
     #endregion
 
     #region Properties
@@ -21,12 +30,15 @@ public class CharacterHealth : MonoBehaviour
     public void SetHealth(int health)
     {
         _health = health;
+        _maxHealth.text = $"{_health}";
+        _currentHealth.text = $"{_health}";
     }
 
     public void TakeDamage(int damage)
     {
         _health -= damage;
         _health = Mathf.Clamp(_health, 0, 100);
+        _currentHealth.text = $"{_health}";
         CheckHealth();
     }
 
@@ -42,9 +54,10 @@ public class CharacterHealth : MonoBehaviour
     {
         if (_health < 1)
         {
-            Debug.Log("Player is died");
             // TODO Losing condition
             // TODO End game
+            Debug.Log("Player is died");
+            OnPlayerDied?.Invoke();
         }
     }
     #endregion

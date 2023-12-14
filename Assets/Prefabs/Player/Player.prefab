@@ -298,7 +298,6 @@ GameObject:
   - component: {fileID: 8949071400645680548}
   - component: {fileID: 4864962902570870983}
   - component: {fileID: 152597005138076976}
-  - component: {fileID: 3484164760362863935}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -314,7 +313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7498020125734249868}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.56, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -382,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b87d71d20c404e959430b0a27cdba83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 0
 --- !u!114 &8949071400645680548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +411,6 @@ MonoBehaviour:
   _loadout:
   - {fileID: 11400000, guid: 8b694a030d8153a44a4b76e1f3ea52f8, type: 2}
   - {fileID: 11400000, guid: 004a5cb80be391648a3d940a47951557, type: 2}
-  _listOfWeaponsAnimator: []
   _weaponPlaceholder: {fileID: 5373438251662253106}
   _hitLayer:
     serializedVersion: 2
@@ -430,20 +429,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _magSizeText: {fileID: 0}
   _ammoCapacityText: {fileID: 0}
---- !u!114 &3484164760362863935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7498020125734249868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfb1913d6674b4afb9a871aa6dda8343, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerController: {fileID: 4662907778269947008}
-  _characterHealth: {fileID: 1855879959766414392}
-  _playerSpeedText: {fileID: 0}
-  _playerGroundedText: {fileID: 0}
-  _playerHealthText: {fileID: 0}
