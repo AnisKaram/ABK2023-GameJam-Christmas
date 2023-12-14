@@ -9,6 +9,11 @@ public class ItemPresent : MonoBehaviour
         InputManager.OnInteractionStarted += TryPickUpPresent;
     }
 
+    private void OnDestroy()
+    {
+        InputManager.OnInteractionStarted -= TryPickUpPresent;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
