@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyParent : MonoBehaviour
@@ -16,11 +17,12 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private ParticleSystem _dieEffect;
 
     [Header("Transforms")]
-    [SerializeField] private Transform _playerTarget; // TODO Assign it using the spawner
+    [SerializeField] private Transform _playerTarget;
 
     private CharacterHealth _playerHealth;
 
     private Vector3 _spawnedPosition;
+    private int _positionIndex;
 
     private NavMeshAgent _navMeshAgent;
     
@@ -42,11 +44,30 @@ public class EnemyParent : MonoBehaviour
     private WaitForSeconds _coolDown;
     #endregion
 
+    #region Properties
+    public Transform PlayerTarget
+    {
+        get { return _playerTarget; }
+        set { _playerTarget = value; }
+    }
+
+    public int PositionIndex
+    {
+        get { return _positionIndex; }
+        set { _positionIndex = value; }
+    }
+    #endregion
+
+    #region Events
+    public static event UnityAction<int> OnEnemyDied;
+    #endregion
+
     #region Unity Methods
     private void Start()
     {
         _playerHealth = _playerTarget.GetComponent<CharacterHealth>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _spawnedPosition = transform.position;
 
         _coolDown = new WaitForSeconds(_cooldownTimer);
 
@@ -119,6 +140,8 @@ public class EnemyParent : MonoBehaviour
 
     private void KillEnemy()
     {
+        OnEnemyDied?.Invoke(_positionIndex);
+
         ParticleSystem particleSystem = Instantiate(_dieEffect);
         particleSystem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         particleSystem.Play();

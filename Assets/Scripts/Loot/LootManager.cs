@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LootManager : MonoBehaviour
 {
+    public static event UnityAction OnPresentDroppedInLoot;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -12,7 +13,7 @@ public class LootManager : MonoBehaviour
             if (isInventoryFull)
             {
                 GlobalConsts.playerInventory.RemoveObjectFromInventory();
-                // TODO Update objective list.
+                OnPresentDroppedInLoot?.Invoke();
             }
         }
     }

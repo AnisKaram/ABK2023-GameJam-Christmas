@@ -16,20 +16,16 @@ public class ItemPresent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
         if (other.CompareTag("Player"))
         {
-            Debug.Log("PLAYER");
             _canBePickedUp = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("OnTriggerExit");
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"PLAYER");
             _canBePickedUp = false;
         }
     }

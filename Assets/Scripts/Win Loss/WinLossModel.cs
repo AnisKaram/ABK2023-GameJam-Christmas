@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WinLossModel : MonoBehaviour
@@ -9,41 +8,40 @@ public class WinLossModel : MonoBehaviour
     private void Awake()
     {
         CharacterHealth.OnPlayerDied += GameOver;
+        SpawnManager.OnGoalReached += GameWon;
     }
 
     private void OnDestroy()
     {
         CharacterHealth.OnPlayerDied -= GameOver;
+        SpawnManager.OnGoalReached -= GameWon;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GameWon();
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            GameOver();
-        }
-    }
-
-    // TODO add for both Game won/over a coroutine to wait a bit
-    // then show the canvases
     private void GameWon()
     {
-        GameManager.Instance.StopGame();
-        InputManager.Instance.Controls.Disable();
-        GameManager.Instance.ConfineCursor();
-        _winLossPresenter.ShowGameWonCanvas();
+        StartCoroutine(WaitAndGameWon());
     }
 
     private void GameOver()
     {
-        GameManager.Instance.StopGame();
+        StartCoroutine(WaitAndGameOver());
+    }
+
+    private IEnumerator WaitAndGameWon()
+    {
+        Time.timeScale = 0.25f;
         InputManager.Instance.Controls.Disable();
         GameManager.Instance.ConfineCursor();
+        yield return new WaitForSeconds(1f);
+        _winLossPresenter.ShowGameWonCanvas();
+    }
+
+    private IEnumerator WaitAndGameOver()
+    {
+        Time.timeScale = 0.25f;
+        InputManager.Instance.Controls.Disable();
+        GameManager.Instance.ConfineCursor();
+        yield return new WaitForSeconds(1f);
         _winLossPresenter.ShowGameOverCanvas();
     }
 }
