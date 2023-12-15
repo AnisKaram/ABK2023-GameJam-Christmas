@@ -17,8 +17,8 @@ MonoBehaviour:
   ammoCapacity: 27
   magSize: 9
   fireRate: 1
-  range: 15
-  reloadTime: 1
+  range: 25
+  reloadTime: 0.75
   bloom: 0
   recoil: 15
   kickback: 0.05

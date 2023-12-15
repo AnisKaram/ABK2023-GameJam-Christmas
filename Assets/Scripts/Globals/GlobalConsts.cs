@@ -11,6 +11,8 @@ public class GlobalConsts : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.StartGame();
+
         if (GameObject.FindWithTag("Player").TryGetComponent(out playerHealth) == false)
         {
             Debug.LogError("Could not find player health");

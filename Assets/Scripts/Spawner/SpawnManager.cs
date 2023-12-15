@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using System.Collections;
 
 [DefaultExecutionOrder(-100)]
 public class SpawnManager : MonoBehaviour
@@ -26,6 +27,8 @@ public class SpawnManager : MonoBehaviour
     private int _presentsCollected;
 
     private Transform _player;
+
+    private WaitForSeconds _waitToRespawnNewEnemy; 
     #endregion
 
     #region Events
@@ -37,6 +40,8 @@ public class SpawnManager : MonoBehaviour
     {
         LootManager.OnPresentDroppedInLoot += IncrementPresentsCollected;
         EnemyParent.OnEnemyDied += SpawnNewEnemy;
+
+        _waitToRespawnNewEnemy = new WaitForSeconds(15f);
 
         _player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -82,6 +87,12 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnNewEnemy(int index)
     {
+        StartCoroutine(WaitAndSpawnNewEnemy(index));
+    }
+
+    private IEnumerator WaitAndSpawnNewEnemy(int index)
+    {
+        yield return _waitToRespawnNewEnemy;
         GameObject enemyInstance = Instantiate(_enemyRed);
         enemyInstance.transform.position = _listOfEnemiesPositions_Area1[index].position;
 

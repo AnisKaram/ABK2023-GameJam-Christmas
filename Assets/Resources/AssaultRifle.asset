@@ -17,10 +17,10 @@ MonoBehaviour:
   ammoCapacity: 90
   magSize: 30
   fireRate: 50
-  range: 30
-  reloadTime: 1.5
+  range: 45
+  reloadTime: 1.15
   bloom: 0
   recoil: 5
   kickback: 0.05
-  weaponState: 3
+  weaponState: 2
   fireMode: 0
