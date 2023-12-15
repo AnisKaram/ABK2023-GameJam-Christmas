@@ -7,7 +7,9 @@ public class GameAudioManager : MonoBehaviour
 {
     public static GameAudioManager Instance;
     public Sounds[] musicSounds, sfxSounds;
-    public AudioSource musicSource, sfxSource, playerSource, weaponSource;
+    public AudioSource musicSource, sfxSource, playerSource, weaponSource, footStepsSource;
+    public AudioClip walkingSFX;
+    public AudioClip sprintingSFX;
     [SerializeField] float inGameVolume;
 
     private void Awake()
@@ -16,10 +18,6 @@ public class GameAudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        }
-        //DEBUG
-        for (int i = 0; i < sfxSounds.Length; i++) {
-            Debug.Log(sfxSounds[i].clipName + "\n");
         }
     }
 
@@ -77,5 +75,22 @@ public class GameAudioManager : MonoBehaviour
         {
             Debug.Log($"Sound \"{name}\" not found (Possible Misspelling?)");
         }
+    }
+
+    public void walkSFX() {
+        if (footStepsSource.clip == null || footStepsSource.clip == sprintingSFX) {
+            footStepsSource.clip = walkingSFX;
+            footStepsSource.Play();
+        }
+    }
+    public void sprintSFX() {
+        if (footStepsSource.clip == null || footStepsSource.clip == sprintingSFX)
+        {
+            footStepsSource.clip = sprintingSFX;
+            footStepsSource.Play();
+        }
+    }
+    public void standStill() {
+        footStepsSource.clip = null;
     }
 }

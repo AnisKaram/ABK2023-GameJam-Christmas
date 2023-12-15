@@ -104,6 +104,20 @@ public class PlayerController : MonoBehaviour
 
         _velocity.y += _gravity * Time.deltaTime;
         _characterController.Move(_velocity * Time.deltaTime);
+
+        if (movement.magnitude > 0.0f) {
+            if (_playerSpeed == _defaultPlayerSpeed)
+            {
+                GameAudioManager.Instance.walkSFX();
+            }
+            else {
+                GameAudioManager.Instance.sprintSFX();
+            }
+        }
+        else
+        {
+            GameAudioManager.Instance.standStill();
+        }
     }
 
     private void HandlePlayerLookingAround()
