@@ -38,6 +38,7 @@ public class WinLossModel : MonoBehaviour
         GameManager.Instance.ConfineCursor();
         yield return new WaitForSecondsRealtime(1f);
         _winLossPresenter.ShowGameWonCanvas();
+        GameManager.Instance.StopGame();
     }
 
     private IEnumerator WaitAndGameOver()
@@ -47,5 +48,6 @@ public class WinLossModel : MonoBehaviour
         GameManager.Instance.ConfineCursor();
         yield return new WaitForSecondsRealtime(1f);
         _winLossPresenter.ShowGameOverCanvas();
+        GameManager.Instance.StopGame();
     }
 }

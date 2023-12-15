@@ -92,14 +92,12 @@ public class WinLossPresenter : MonoBehaviour
 
     public void ShowGameWonCanvas()
     {
-        Time.timeScale = 0;
         GameAudioManager.Instance.PlayMusic("Winning Music");
         _winningScreenCanvas.SetActive(true); 
     }
 
     public void ShowGameOverCanvas()
     {
-        Time.timeScale = 0;
         GameAudioManager.Instance.PlayMusic("Losing Music");
         _losingScreenCanvas.SetActive(true);
     }
