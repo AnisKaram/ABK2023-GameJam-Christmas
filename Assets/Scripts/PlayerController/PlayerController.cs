@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,13 +19,13 @@ public class PlayerController : MonoBehaviour
 
     private InputManager _inputManager;
 
-    private const float _mouseSensitivity = 50f;
+    private const float _mouseSensitivity = 100f;
 
     private float _xRotation = 0f;
 
     private float _playerSpeed;
     private const float _defaultPlayerSpeed = 7.5f;
-    private const float _sprintingSpeed = 10f;
+    private const float _sprintingSpeed = 12.5f;
     private const float _gravity = -19.62f; // default is -9.81f
 
     private const float groundDistance = 0.4f;
