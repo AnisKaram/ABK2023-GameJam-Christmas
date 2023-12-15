@@ -1328,7 +1328,7 @@ PrefabInstance:
     - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
       propertyPath: inGameVolume
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
