@@ -207,7 +207,6 @@ public class WeaponModel : MonoBehaviour
             if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out singleHit, _loadout[_currentWeaponIndex].range, _hitLayer))
             {
                 DealDamageToEnemy(hit: singleHit);
-                Debug.Log("Enemy hit!");
             }
         }
     }
@@ -217,7 +216,6 @@ public class WeaponModel : MonoBehaviour
         EnemyParent enemy = hit.transform.GetComponent<EnemyParent>();
         int weaponDamage = _loadout[_currentWeaponIndex].damage;
         enemy.TakeDamage(weaponDamage);
-        Debug.Log($"Enemy hit! {weaponDamage}");
     }
 
     private void UpdateAmmoOnUI()

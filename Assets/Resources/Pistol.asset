@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   model: {fileID: 9060138589884306889, guid: f56356f5fde544082949de13bf053482, type: 3}
-  damage: 15
+  damage: 20
   ammoCapacity: 27
   magSize: 9
   fireRate: 1
@@ -22,5 +22,5 @@ MonoBehaviour:
   bloom: 0
   recoil: 15
   kickback: 0.05
-  weaponState: 1
+  weaponState: 0
   fireMode: 1

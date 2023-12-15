@@ -3,9 +3,10 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     #region Fields
+    [Header("GameObjects")]
     [SerializeField] private GameObject _presentInInventory;
-
-    //private const float _maxItemsToHold = 1; // Player can only hold 1 present at a time
+    [SerializeField] private GameObject _giftImage;
+    [SerializeField] private GameObject _noGiftImage;
     #endregion
 
     #region Unity Methods
@@ -18,11 +19,13 @@ public class InventoryManager : MonoBehaviour
     #region Public Methods
     public void AddObjectToInventory(GameObject grabbedObject)
     {
+        UpdateUI(isRemoved: false);
         _presentInInventory = grabbedObject;
     }
 
     public void RemoveObjectFromInventory()
     {
+        UpdateUI(isRemoved: true);
         GameObject objectInInventory = _presentInInventory;
         Destroy(objectInInventory);
         _presentInInventory = null;
@@ -30,8 +33,21 @@ public class InventoryManager : MonoBehaviour
 
     public bool IsInvetoryAtFullCapacity()
     {
-        //return _presentInInventory.Count >= _maxItemsToHold ? true : false;
         return _presentInInventory != null ? true : false;
+    }
+    #endregion
+
+    #region Private Methods
+    private void UpdateUI(bool isRemoved)
+    {
+        if (isRemoved)
+        {
+            _noGiftImage.SetActive(true);
+            _giftImage.SetActive(false);
+            return;
+        }
+        _noGiftImage.SetActive(false);
+        _giftImage.SetActive(true);
     }
     #endregion
 }
