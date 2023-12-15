@@ -1327,6 +1327,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
+      propertyPath: inGameVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
+        type: 3}
       propertyPath: sfxSounds.Array.size
       value: 16
       objectReference: {fileID: 0}
@@ -1419,6 +1424,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Loop
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7299274499730117277, guid: f334dfcf8b313cb49a9e790458924ae9,
+        type: 3}
+      propertyPath: Priority
+      value: 115
       objectReference: {fileID: 0}
     - target: {fileID: 7299274499730117277, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}

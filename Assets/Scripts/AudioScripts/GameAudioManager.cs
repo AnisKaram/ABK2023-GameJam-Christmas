@@ -8,6 +8,7 @@ public class GameAudioManager : MonoBehaviour
     public static GameAudioManager Instance;
     public Sounds[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource, playerSource, weaponSource;
+    [SerializeField] float inGameVolume;
 
     private void Awake()
     {
@@ -25,9 +26,11 @@ public class GameAudioManager : MonoBehaviour
     public void PlayMusic(string name) {
         Sounds mySound = Array.Find(musicSounds, x => x.clipName == name);
         if(mySound != null)
-        {
+        { 
             musicSource.clip = mySound.clip;
             musicSource.loop = true;
+            if (mySound.clipName == "In Game Music") { musicSource.volume = inGameVolume; }
+            else { musicSource.volume = 1f; }
             musicSource.Play();
         }
         else
