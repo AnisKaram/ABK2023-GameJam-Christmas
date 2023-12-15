@@ -17,8 +17,12 @@ public class GameAudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayMusic(string name) {
@@ -28,7 +32,7 @@ public class GameAudioManager : MonoBehaviour
             musicSource.clip = mySound.clip;
             musicSource.loop = true;
             if (mySound.clipName == "In Game Music") { musicSource.volume = inGameVolume; }
-            else { musicSource.volume = 1f; }
+            else { musicSource.volume = 0.5f; }
             musicSource.Play();
         }
         else

@@ -105,12 +105,14 @@ public class PlayerController : MonoBehaviour
         _velocity.y += _gravity * Time.deltaTime;
         _characterController.Move(_velocity * Time.deltaTime);
 
-        if (movement.magnitude > 0.0f) {
+        if (movement.magnitude > 0.0f && _isGrounded)
+        {
             if (_playerSpeed == _defaultPlayerSpeed)
             {
                 GameAudioManager.Instance.walkSFX();
             }
-            else {
+            else
+            {
                 GameAudioManager.Instance.sprintSFX();
             }
         }
