@@ -33,7 +33,7 @@ public class WinLossModel : MonoBehaviour
 
     private IEnumerator WaitAndGameWon()
     {
-        Time.timeScale = 0.0f;
+        Time.timeScale = 0.25f;
         InputManager.Instance.Controls.Disable();
         GameManager.Instance.ConfineCursor();
         yield return new WaitForSeconds(1f);
@@ -42,7 +42,7 @@ public class WinLossModel : MonoBehaviour
 
     private IEnumerator WaitAndGameOver()
     {
-        Time.timeScale = 0.0f;
+        Time.timeScale = 0.25f;
         InputManager.Instance.Controls.Disable();
         GameManager.Instance.ConfineCursor();
         yield return new WaitForSeconds(1f);
