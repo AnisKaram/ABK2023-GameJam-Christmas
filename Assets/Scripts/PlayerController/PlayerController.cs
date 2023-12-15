@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
         {
             ChangePlayerSpeed(speed: _defaultPlayerSpeed);
             _velocity.y += Mathf.Sqrt(jumpHeight * -2f * _gravity);
+            GameAudioManager.Instance.PlaySFXFromPlayer("Jump");
         }
     }
 

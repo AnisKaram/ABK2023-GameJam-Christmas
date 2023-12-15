@@ -39,5 +39,6 @@ public class ItemPresent : MonoBehaviour
 
         GlobalConsts.playerInventory.AddObjectToInventory(gameObject);
         gameObject.SetActive(false);
+        GameAudioManager.Instance.PlaySFX("Present Pickup");
     }
 }

@@ -10,6 +10,7 @@ public class ItemAmmoCrate : ItemBase
         }
 
         GlobalConsts.playerWeapons.RefillAmmo();
+        GameAudioManager.Instance.PlaySFX("Ammo Crates Pickup");
 
         return true;
     }

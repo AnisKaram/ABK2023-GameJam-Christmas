@@ -55,22 +55,23 @@ public class PauseMenuUIManager : MonoBehaviour
     private void onMainMenu() {
         GameManager.Instance.StartGame();
         SceneManager.LoadScene("MainMenu");
+        GameAudioManager.Instance.PlaySFX("Button Click");
     }
 
     private void onExit() {
         Application.Quit();
         Debug.Log("Exit");
+        GameAudioManager.Instance.PlaySFX("Button Click");
     }
 
     private void onResume() {
 
         //resume game
-        Debug.Log("resume");
         GameManager.Instance.StartGame();
         InputManager.Instance.Controls.Gameplay.Enable();
         PauseMenuCanvas.SetActive(false);
         GameManager.Instance.LockCursor();
-        Debug.Log("Resume");
+        GameAudioManager.Instance.PlaySFX("Button Click");
     }
 
     private void onPause()
@@ -81,5 +82,6 @@ public class PauseMenuUIManager : MonoBehaviour
         GameManager.Instance.StopGame();
         GameManager.Instance.ConfineCursor();
         PauseMenuCanvas.SetActive(true);
+        GameAudioManager.Instance.PlaySFX("Button Click");
     }
 }
