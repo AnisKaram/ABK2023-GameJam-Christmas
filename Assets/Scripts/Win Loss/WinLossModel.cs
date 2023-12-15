@@ -36,7 +36,7 @@ public class WinLossModel : MonoBehaviour
         Time.timeScale = 0.25f;
         InputManager.Instance.Controls.Disable();
         GameManager.Instance.ConfineCursor();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         _winLossPresenter.ShowGameWonCanvas();
     }
 
@@ -45,7 +45,7 @@ public class WinLossModel : MonoBehaviour
         Time.timeScale = 0.25f;
         InputManager.Instance.Controls.Disable();
         GameManager.Instance.ConfineCursor();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         _winLossPresenter.ShowGameOverCanvas();
     }
 }

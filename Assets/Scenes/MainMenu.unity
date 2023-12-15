@@ -1255,6 +1255,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 67129542677977241, guid: f334dfcf8b313cb49a9e790458924ae9,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 67129542677977241, guid: f334dfcf8b313cb49a9e790458924ae9,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1340004002155177057, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
       propertyPath: Priority
@@ -1333,7 +1343,7 @@ PrefabInstance:
     - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
       propertyPath: sfxSounds.Array.size
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
@@ -1370,6 +1380,11 @@ PrefabInstance:
       propertyPath: sfxSounds.Array.data[15].clip
       value: 
       objectReference: {fileID: 8300000, guid: 474d5a255ea15d440a3feb4d18c2ec34, type: 3}
+    - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
+        type: 3}
+      propertyPath: sfxSounds.Array.data[16].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b1cb4c35445fd484d99c449e038fad17, type: 3}
     - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
       propertyPath: musicSounds.Array.data[0].clip
@@ -1409,6 +1424,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sfxSounds.Array.data[15].clipName
       value: Target Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
+        type: 3}
+      propertyPath: sfxSounds.Array.data[16].clipName
+      value: Button Click
       objectReference: {fileID: 0}
     - target: {fileID: 4395298195509090111, guid: f334dfcf8b313cb49a9e790458924ae9,
         type: 3}
