@@ -125,7 +125,7 @@ public class EnemyParent : MonoBehaviour
         _navMeshAgent.destination = targetPosition;
     }
 
-    private void DealDamageToPlayer()
+    public virtual void DealDamageToPlayer()
     {
         _playerHealth.TakeDamage(_damageToDeal);
     }
