@@ -109,10 +109,12 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerSpeed == _defaultPlayerSpeed)
             {
+                Debug.Log($"Walk SFX");
                 GameAudioManager.Instance.walkSFX();
             }
             else
             {
+                Debug.Log($"Sprint SFX");
                 GameAudioManager.Instance.sprintSFX();
             }
         }

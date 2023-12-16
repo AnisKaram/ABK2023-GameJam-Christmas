@@ -15,15 +15,6 @@ public class GameAudioManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //if (Instance == null)
-        //{
-        //    Instance = this;
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
-        //DontDestroyOnLoad(gameObject);
     }
 
     public void PlayMusic(string name) {
@@ -89,7 +80,7 @@ public class GameAudioManager : MonoBehaviour
         }
     }
     public void sprintSFX() {
-        if (footStepsSource.clip == null || footStepsSource.clip == sprintingSFX)
+        if (footStepsSource.clip == null || footStepsSource.clip == walkingSFX)
         {
             footStepsSource.clip = sprintingSFX;
             footStepsSource.Play();
