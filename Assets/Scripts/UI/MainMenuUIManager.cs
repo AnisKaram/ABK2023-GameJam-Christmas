@@ -62,7 +62,6 @@ public class MainMenuUIManager : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
-        GameAudioManager.Instance.PlayMusic("In Game Music");
         GameAudioManager.Instance.PlaySFX("Button Click");
         int gameSceneIndex = 1;
         SceneManager.LoadSceneAsync(gameSceneIndex);
@@ -104,9 +103,7 @@ public class MainMenuUIManager : MonoBehaviour
 
     private void AnyKeyPressed()
     {
-        GameAudioManager.Instance.PlaySFX("Button Click");
         GameManager.Instance.IsSplashScreenShowed = true;
-        GameAudioManager.Instance.PlayMusic("Main Menu Music");
         _spashScreenCanvas.SetActive(false);
     }
 }

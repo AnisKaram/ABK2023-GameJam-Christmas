@@ -61,7 +61,6 @@ public class WinLossPresenter : MonoBehaviour
     {
         Time.timeScale = 1;
         GameAudioManager.Instance.PlaySFX("Button Click");
-        GameAudioManager.Instance.PlayMusic("Main Menu Music");
         SceneManager.LoadSceneAsync("MainMenu");
     }
 
@@ -85,7 +84,6 @@ public class WinLossPresenter : MonoBehaviour
 
     private void OnRetryButtonClicked()
     {
-        GameAudioManager.Instance.PlayMusic("In Game Music");
         GameAudioManager.Instance.PlaySFX("Button Click");
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }

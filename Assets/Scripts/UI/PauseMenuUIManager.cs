@@ -30,12 +30,13 @@ public class PauseMenuUIManager : MonoBehaviour
 
     private void InputManager_OnPauseTriggered()
     {
-        if (!PauseMenuCanvas.activeInHierarchy) {
+        if (!PauseMenuCanvas.activeInHierarchy)
+        {
             onPause();
         }
         else
         {
-            onResume();
+            onResume(isButtonClicked: false);
         }
     }
 
@@ -43,7 +44,7 @@ public class PauseMenuUIManager : MonoBehaviour
         //actions
         mainMenuAction = new UnityAction(onMainMenu);
         exitAction = new UnityAction(onExit);
-        resumeAction = new UnityAction(onResume);
+        resumeAction = new UnityAction(() => { onResume(isButtonClicked: true); });
 
         //listeners
         MainMenuButton.onClick.AddListener(mainMenuAction);
@@ -54,34 +55,35 @@ public class PauseMenuUIManager : MonoBehaviour
 
     private void onMainMenu() {
         GameManager.Instance.StartGame();
-        SceneManager.LoadScene("MainMenu");
         GameAudioManager.Instance.PlaySFX("Button Click");
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void onExit() {
-        Application.Quit();
-        Debug.Log("Exit");
         GameAudioManager.Instance.PlaySFX("Button Click");
+        Application.Quit();
     }
 
-    private void onResume() {
+    private void onResume(bool isButtonClicked) {
 
         //resume game
         GameManager.Instance.StartGame();
         InputManager.Instance.Controls.Gameplay.Enable();
         PauseMenuCanvas.SetActive(false);
         GameManager.Instance.LockCursor();
-        GameAudioManager.Instance.PlaySFX("Button Click");
+
+        if (isButtonClicked)
+        {
+            GameAudioManager.Instance.PlaySFX("Button Click");
+        }
     }
 
     private void onPause()
     {
-        //pause game
-        Debug.Log("pause");
         InputManager.Instance.Controls.Gameplay.Disable();
         GameManager.Instance.StopGame();
         GameManager.Instance.ConfineCursor();
         PauseMenuCanvas.SetActive(true);
-        GameAudioManager.Instance.PlaySFX("Button Click");
+        //GameAudioManager.Instance.PlaySFX("Button Click");
     }
 }
