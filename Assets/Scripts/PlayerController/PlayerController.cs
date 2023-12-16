@@ -104,6 +104,24 @@ public class PlayerController : MonoBehaviour
 
         _velocity.y += _gravity * Time.deltaTime;
         _characterController.Move(_velocity * Time.deltaTime);
+
+        if (movement.magnitude > 0.0f && _isGrounded)
+        {
+            if (_playerSpeed == _defaultPlayerSpeed)
+            {
+                Debug.Log($"Walk SFX");
+                GameAudioManager.Instance.walkSFX();
+            }
+            else
+            {
+                Debug.Log($"Sprint SFX");
+                GameAudioManager.Instance.sprintSFX();
+            }
+        }
+        else
+        {
+            GameAudioManager.Instance.standStill();
+        }
     }
 
     private void HandlePlayerLookingAround()
@@ -128,6 +146,7 @@ public class PlayerController : MonoBehaviour
         {
             ChangePlayerSpeed(speed: _defaultPlayerSpeed);
             _velocity.y += Mathf.Sqrt(jumpHeight * -2f * _gravity);
+            GameAudioManager.Instance.PlaySFXFromPlayer("Jump");
         }
     }
 

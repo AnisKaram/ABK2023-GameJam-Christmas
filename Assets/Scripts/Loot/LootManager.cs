@@ -13,6 +13,7 @@ public class LootManager : MonoBehaviour
             if (isInventoryFull)
             {
                 GlobalConsts.playerInventory.RemoveObjectFromInventory();
+                GameAudioManager.Instance.PlaySFX("Present Drop");
                 OnPresentDroppedInLoot?.Invoke();
             }
         }

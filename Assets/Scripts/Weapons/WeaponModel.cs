@@ -178,6 +178,7 @@ public class WeaponModel : MonoBehaviour
                 ChangeEquippedWeaponState(WeaponState.Shooting);
 
                 PlayMuzzleFlashOnWeapon();
+                GameAudioManager.Instance.PlaySFXFromGun("Single Shot");
                 DecrementAmmo();
 
                 _currentWeaponModel.transform.Rotate(_loadout[_currentWeaponIndex].recoil, 0, 0);
@@ -198,6 +199,7 @@ public class WeaponModel : MonoBehaviour
             ChangeEquippedWeaponState(WeaponState.Shooting);
 
             PlayMuzzleFlashOnWeapon();
+            GameAudioManager.Instance.PlaySFX("Single Shot");
             DecrementAmmo();
 
             _currentWeaponModel.transform.Rotate(_loadout[_currentWeaponIndex].recoil, 0, 0);
@@ -216,6 +218,7 @@ public class WeaponModel : MonoBehaviour
         EnemyParent enemy = hit.transform.GetComponent<EnemyParent>();
         int weaponDamage = _loadout[_currentWeaponIndex].damage;
         enemy.TakeDamage(weaponDamage);
+        GameAudioManager.Instance.PlaySFX("Target Hit");
     }
 
     private void UpdateAmmoOnUI()
@@ -267,6 +270,7 @@ public class WeaponModel : MonoBehaviour
             ChangeEquippedWeaponState(WeaponState.Reloading);
             StartCoroutine(WaitForReload());
             EnableDisableReloadAnimation(isReloading: true);
+            GameAudioManager.Instance.PlaySFXFromGun("Reload");
 
             if (magSize == 0)
             {

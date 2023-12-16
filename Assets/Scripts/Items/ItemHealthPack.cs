@@ -12,6 +12,7 @@ public class ItemHealthPack : ItemBase
             return false;
         }
 
+        GameAudioManager.Instance.PlaySFX("Health Pack Pickup");
         GlobalConsts.playerHealth.GainHealth(_healthRestored);
 
         return true;

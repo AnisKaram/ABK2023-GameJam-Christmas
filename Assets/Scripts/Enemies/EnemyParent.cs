@@ -128,6 +128,7 @@ public class EnemyParent : MonoBehaviour
     private void DealDamageToPlayer()
     {
         _playerHealth.TakeDamage(_damageToDeal);
+        GameAudioManager.Instance.PlaySFX("Enemy Hit");
     }
 
     private void CheckHealth()
@@ -145,6 +146,7 @@ public class EnemyParent : MonoBehaviour
         ParticleSystem particleSystem = Instantiate(_dieEffect);
         particleSystem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         particleSystem.Play();
+        GameAudioManager.Instance.PlaySFX("Enemy Killed");
 
         Destroy(gameObject);
     }

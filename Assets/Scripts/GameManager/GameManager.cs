@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,7 +35,19 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
 
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+
         StartGame();
+    }
+
+    private void SceneManager_activeSceneChanged(Scene prevScene, Scene currScene)
+    {
+        if (currScene.name == "GameScene")
+        {
+            GameAudioManager.Instance.PlayMusic("In Game Music");
+            return;
+        }
+        GameAudioManager.Instance.PlayMusic("Main Menu Music");
     }
     #endregion
 

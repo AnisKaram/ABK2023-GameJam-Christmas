@@ -62,27 +62,32 @@ public class MainMenuUIManager : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         int gameSceneIndex = 1;
         SceneManager.LoadSceneAsync(gameSceneIndex);
     }
 
     private void OnHowToPlayButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         _howToPlayCanvas.SetActive(true);
     }
 
     private void OnCreditsButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         _creditsCanvas.SetActive(true);
     }
 
     private void OnExitButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         Application.Quit();
     }
 
     private void OnBackButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         if (_creditsCanvas.activeInHierarchy)
         {
             _creditsCanvas.SetActive(false);

@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -145,7 +143,6 @@ public class InputManager : MonoBehaviour
     private void PauseStarted()
     {
         OnPauseTriggered?.Invoke();
-        Debug.Log("F3 clicked");
     }
 
     private void ReloadStarted()
@@ -164,7 +161,6 @@ public class InputManager : MonoBehaviour
         {
             OnFireTriggered?.Invoke();
         }
-
     }
 
     private void FireCanceled()

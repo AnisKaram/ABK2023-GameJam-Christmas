@@ -60,6 +60,7 @@ public class WinLossPresenter : MonoBehaviour
     private void OnMainMenuButtonClicked()
     {
         Time.timeScale = 1;
+        GameAudioManager.Instance.PlaySFX("Button Click");
         SceneManager.LoadSceneAsync("MainMenu");
     }
 
@@ -70,27 +71,32 @@ public class WinLossPresenter : MonoBehaviour
 
     private void OnCreditsButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         _winningScreenCanvas.SetActive(false);
         _creditsCanvas.SetActive(true);
     }
     private void OnBackButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         _winningScreenCanvas.SetActive(true);
         _creditsCanvas.SetActive(false);
     }
 
     private void OnRetryButtonClicked()
     {
+        GameAudioManager.Instance.PlaySFX("Button Click");
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
     public void ShowGameWonCanvas()
     {
+        GameAudioManager.Instance.PlayMusic("Winning Music");
         _winningScreenCanvas.SetActive(true); 
     }
 
     public void ShowGameOverCanvas()
     {
+        GameAudioManager.Instance.PlayMusic("Losing Music");
         _losingScreenCanvas.SetActive(true);
     }
 }

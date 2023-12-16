@@ -19,11 +19,15 @@ public class WinLossModel : MonoBehaviour
 
     private void GameWon()
     {
+        GameAudioManager.Instance.musicSource.Stop();
+        GameAudioManager.Instance.PlaySFXFromPlayer("Player Won");
         StartCoroutine(WaitAndGameWon());
     }
 
     private void GameOver()
     {
+        GameAudioManager.Instance.musicSource.Stop();
+        GameAudioManager.Instance.PlaySFXFromPlayer("Player Killed");
         StartCoroutine(WaitAndGameOver());
     }
 
@@ -32,8 +36,9 @@ public class WinLossModel : MonoBehaviour
         Time.timeScale = 0.25f;
         InputManager.Instance.Controls.Disable();
         GameManager.Instance.ConfineCursor();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         _winLossPresenter.ShowGameWonCanvas();
+        GameManager.Instance.StopGame();
     }
 
     private IEnumerator WaitAndGameOver()
@@ -41,7 +46,8 @@ public class WinLossModel : MonoBehaviour
         Time.timeScale = 0.25f;
         InputManager.Instance.Controls.Disable();
         GameManager.Instance.ConfineCursor();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         _winLossPresenter.ShowGameOverCanvas();
+        GameManager.Instance.StopGame();
     }
 }
