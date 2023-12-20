@@ -6,7 +6,7 @@ public class EnemyMelee : EnemyParent
         SetChaseDistance(chaseDistance: 15f);
         SetAttackDistance(attackDistance: 3f);
 
-        SetDamage(damage: 35);
+        SetDamage(damage: 15);
 
         SetCoolDownTimer(cooldownTimer: 3f);
 
