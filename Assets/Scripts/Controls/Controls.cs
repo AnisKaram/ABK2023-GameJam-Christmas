@@ -403,7 +403,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""586ec228-bb50-4bc6-b728-6fdd62eb4337"",
-                    ""path"": ""<Keyboard>/f3"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
