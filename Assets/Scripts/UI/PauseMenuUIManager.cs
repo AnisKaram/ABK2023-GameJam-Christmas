@@ -8,15 +8,20 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuUIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _settingsCanvas;
     // buttons
     [SerializeField] private Button MainMenuButton;
     [SerializeField] private Button ExitButton;
     [SerializeField] private Button ResumeButton;
+    [SerializeField] private Button _settingsButton;
+    [SerializeField] private Button _backInSettingsButton;
     [SerializeField] GameObject PauseMenuCanvas;
 
     private UnityAction mainMenuAction;
     private UnityAction exitAction;
     private UnityAction resumeAction;
+    private UnityAction _settingsAction;
+    private UnityAction _backAction;
 
     private void Awake()
     {
@@ -45,12 +50,15 @@ public class PauseMenuUIManager : MonoBehaviour
         mainMenuAction = new UnityAction(onMainMenu);
         exitAction = new UnityAction(onExit);
         resumeAction = new UnityAction(() => { onResume(isButtonClicked: true); });
+        _settingsAction = new UnityAction(OnSettingsButtonClicked);
+        _backAction = new UnityAction(OnBackButtonClicked);
 
         //listeners
         MainMenuButton.onClick.AddListener(mainMenuAction);
         ExitButton.onClick.AddListener(exitAction);
         ResumeButton.onClick.AddListener(resumeAction);
-
+        _settingsButton.onClick.AddListener(_settingsAction);
+        _backInSettingsButton.onClick.AddListener(_backAction);
     }
 
     private void onMainMenu() {
@@ -85,5 +93,16 @@ public class PauseMenuUIManager : MonoBehaviour
         GameManager.Instance.ConfineCursor();
         PauseMenuCanvas.SetActive(true);
         //GameAudioManager.Instance.PlaySFX("Button Click");
+    }
+
+    private void OnSettingsButtonClicked()
+    {
+        _settingsCanvas.SetActive(true);
+    }
+
+    private void OnBackButtonClicked()
+    {
+        GameAudioManager.Instance.PlaySFX("Button Click");
+        _settingsCanvas.SetActive(false);
     }
 }

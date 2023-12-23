@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameAudioManager : MonoBehaviour
 {
     public static GameAudioManager Instance;
+    [SerializeField] private PlayerSettings _playerSettings;
     public Sounds[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource, playerSource, weaponSource, footStepsSource;
     public AudioClip walkingSFX;
@@ -14,6 +15,24 @@ public class GameAudioManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        ApplyVolumeSettings();
+    }
+
+    private void ApplyVolumeSettings()
+    {
+        float musicVol = _playerSettings.musicVolume;
+        musicSource.volume = musicVol;
+
+        float sfxVol = _playerSettings.sfxVolume;
+        sfxSource.volume = sfxVol;
+        playerSource.volume = sfxVol;
+        weaponSource.volume = sfxVol;
+        footStepsSource.volume = sfxVol;
+
     }
 
     public void PlayMusic(string name) {
@@ -98,5 +117,19 @@ public class GameAudioManager : MonoBehaviour
     public void standStill()
     {
         footStepsSource.clip = null;
+    }
+
+
+    public void ChangeMusicSourceVolume(float musicVolume)
+    {
+        musicSource.volume = musicVolume;
+    }
+
+    public void ChangeSoundEffectsSourceVolume(float sfxVolume)
+    {
+        sfxSource.volume = sfxVolume;
+        playerSource.volume = sfxVolume;
+        weaponSource.volume = sfxVolume;
+        footStepsSource.volume = sfxVolume;
     }
 }

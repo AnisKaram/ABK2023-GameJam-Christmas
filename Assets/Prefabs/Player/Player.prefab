@@ -481,6 +481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b7c62c733e7412184bdaf11d8b579d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerSettings: {fileID: 11400000, guid: 4462ac1be77c54eb19a922a6a659c695, type: 2}
   _characterHealth: {fileID: 1855879959766414392}
   _characterController: {fileID: 3814453337469311181}
   _playerCamera: {fileID: 7414804248534561275}

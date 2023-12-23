@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Fields
+    [Header("Scriptable Objects")]
+    [SerializeField] private PlayerSettings _playerSettings;
+
     [Header("Scripts")]
     [SerializeField] private CharacterHealth _characterHealth;
 
@@ -19,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private InputManager _inputManager;
 
-    private const float _mouseSensitivity = 100f;
+    private float _mouseSensitivity;
 
     private float _xRotation = 0f;
 
@@ -61,6 +64,9 @@ public class PlayerController : MonoBehaviour
         InputManager.OnSprintTriggered += HandlePlayerSprint;
         InputManager.OnSprintStopped += HandlePlayerStoppedSprinting;
         InputManager.OnCrouchTriggered += HandlePlayerCrouching;
+
+        SettingsSaverLoader.OnSettingsSaved += UpdateMouseSensitivity;
+
         _characterHealth.SetHealth(health: 100);
     }
 
@@ -71,6 +77,8 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         _playerSpeed = _defaultPlayerSpeed;
+
+        UpdateMouseSensitivity();
     }
 
     private void Update()
@@ -88,10 +96,16 @@ public class PlayerController : MonoBehaviour
         InputManager.OnSprintTriggered -= HandlePlayerSprint;
         InputManager.OnSprintStopped -= HandlePlayerStoppedSprinting;
         InputManager.OnCrouchTriggered -= HandlePlayerCrouching;
+        SettingsSaverLoader.OnSettingsSaved -= UpdateMouseSensitivity;
     }
     #endregion
 
     #region Private Methods
+    private void UpdateMouseSensitivity()
+    {
+        _mouseSensitivity = _playerSettings.sensitivity * 100f;
+    }
+
     private void HandlePlayerMovement()
     {
         Vector2 input = _inputManager.GetPlayerMovement();
