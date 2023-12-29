@@ -9,6 +9,7 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] private GameObject _spashScreenCanvas;
     [SerializeField] private GameObject _howToPlayCanvas;
     [SerializeField] private GameObject _creditsCanvas;
+    [SerializeField] private GameObject _settingsCanvas;
 
     [Header("Buttons")]
     [SerializeField] private Button _playButton;
@@ -18,6 +19,8 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] private Button _backInCreditsButton;
     [SerializeField] private Button _backInHowToPlayButton;
     [SerializeField] private Button _startButton;
+    [SerializeField] private Button _settingsButton;
+    [SerializeField] private Button _backInSettingsButton;
 
 
     private UnityAction _playAction;
@@ -25,6 +28,7 @@ public class MainMenuUIManager : MonoBehaviour
     private UnityAction _creditsAction;
     private UnityAction _exitAction;
     private UnityAction _backAction;
+    private UnityAction _settingsAction;
 
 
     private void Awake()
@@ -50,6 +54,7 @@ public class MainMenuUIManager : MonoBehaviour
         _creditsAction = new UnityAction(OnCreditsButtonClicked);
         _exitAction = new UnityAction(OnExitButtonClicked);
         _backAction = new UnityAction(OnBackButtonClicked);
+        _settingsAction = new UnityAction(OnSettingsButtonClicked);
 
         _playButton.onClick.AddListener(_playAction);
         _howToPlayButton.onClick.AddListener(_howToPlayAction);
@@ -58,6 +63,14 @@ public class MainMenuUIManager : MonoBehaviour
         _backInCreditsButton.onClick.AddListener(_backAction);
         _backInHowToPlayButton.onClick.AddListener(_backAction);
         _startButton.onClick.AddListener(OnPlayButtonClicked);
+        _backInSettingsButton.onClick.AddListener(_backAction);
+        _settingsButton.onClick.AddListener(OnSettingsButtonClicked);
+    }
+
+    private void OnSettingsButtonClicked()
+    {
+        GameAudioManager.Instance.PlaySFX("Button Click");
+        _settingsCanvas.SetActive(true);
     }
 
     private void OnPlayButtonClicked()
@@ -93,7 +106,13 @@ public class MainMenuUIManager : MonoBehaviour
             _creditsCanvas.SetActive(false);
             return;
         }
-        _howToPlayCanvas.SetActive(false);
+
+        if (_howToPlayCanvas.activeInHierarchy)
+        {
+            _howToPlayCanvas.SetActive(false);
+            return;
+        }
+        _settingsCanvas.SetActive(false);
     }
 
     private void EnableDisableSplashScreen(bool showSplashScreen)

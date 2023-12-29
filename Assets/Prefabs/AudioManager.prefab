@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2e4c6c1f51afc4f8b2d90b86be0bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerSettings: {fileID: 11400000, guid: 4462ac1be77c54eb19a922a6a659c695, type: 2}
   musicSounds:
   - clipName: In Game Music
     clip: {fileID: 8300000, guid: 12eb5d281d82e4abeae1dba62f6842c0, type: 3}

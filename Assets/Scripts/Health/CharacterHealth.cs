@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using TMPro;
 
 public class CharacterHealth : MonoBehaviour
 {
     #region Fields
+    [SerializeField] private Slider _healthSlider;
     [SerializeField] private TextMeshProUGUI _currentHealth;
     [SerializeField] private TextMeshProUGUI _maxHealth;
 
@@ -32,6 +34,7 @@ public class CharacterHealth : MonoBehaviour
         _health = health;
         UpdateMaxHealthOnUI();
         UpdateCurrentHealthOnUI();
+        UpdateHealthSlider();
     }
 
     public void TakeDamage(int damage)
@@ -39,6 +42,7 @@ public class CharacterHealth : MonoBehaviour
         _health -= damage;
         _health = Mathf.Clamp(_health, 0, 100);
         UpdateCurrentHealthOnUI();
+        UpdateHealthSlider();
         CheckHealth();
     }
 
@@ -47,6 +51,7 @@ public class CharacterHealth : MonoBehaviour
         _health += health;
         _health = Mathf.Clamp(_health, 1, 100);
         UpdateCurrentHealthOnUI();
+        UpdateHealthSlider();
     }
     #endregion
 
@@ -57,6 +62,11 @@ public class CharacterHealth : MonoBehaviour
         {
             OnPlayerDied?.Invoke();
         }
+    }
+
+    private void UpdateHealthSlider()
+    {
+        _healthSlider.value = _health + 10;
     }
 
     private void UpdateCurrentHealthOnUI()
